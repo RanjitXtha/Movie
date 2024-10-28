@@ -15,4 +15,4 @@ const fetchPopularMovies = async(req,res) =>{
     }
   }
 
-module.exports = (fetchPopularMovies};
+module.exports = {fetchPopularMovies};
