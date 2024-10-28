@@ -24,6 +24,7 @@ const LoginPage = () => {
             const tokenData = await response.json();
             localStorage.setItem('token',tokenData.token);
             console.log('token created');
+            navigate('/')
         }else{
             const error = await response.json();
             alert(error.message);
