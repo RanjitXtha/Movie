@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Homepage = () => {
-  const API_KEY = '67a6d5b313d0a1cfd9da9f9bd0e4e475';
-const BASE_URL = 'https://api.themoviedb.org/3';
-  async function fetchPopularMovies() {
-    try {
-      const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log(data.results); // Logs popular movies
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-  
-  fetchPopularMovies();
+  useEffect(()=>{
+
+ 
+  const PopularMovies = async()=>{
+    const response = await fetch('http://localhost:5000/api/movies/popular')
+    const data = await response.json();
+    console.log(data);
+  } 
+
+  const LatestMovies = async()=>{
+    const response = await fetch('http://localhost:5000/api/movies/latest')
+    const data = await response.json();
+    console.log(data.latest);
+  } 
+
+  //PopularMovies();
+  LatestMovies();
+})
   return (
     <div>Homepagee
        <div>new page is added</div>

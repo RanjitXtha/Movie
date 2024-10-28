@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
-const userSchema = require('./schema/userSchema');
+const userSchema = require('../schema/userSchema');
 
 const SECRET_KEY= 'thisisasecretkey';
 
@@ -33,12 +33,8 @@ const LogIn = async(req,res)=>{
 
 const SignIn = async(req,res)=>{
     try{
-        
         const {email , password} = req.body;
-        
         const user = await userSchema.findOne({email});
-
-
 
         if (!user) {
             console.log('User doesn\'t exist');

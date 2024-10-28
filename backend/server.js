@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const {LogIn , SignIn} = require('./controller/authController');
+const {fetchPopularMovies , fetchLatestMovie} = require('./tmdb/getMovies');
 
 const dbURL = "mongodb+srv://alienshooternp:herecomesthepain12@nodetesting.ljo8jbk.mongodb.net/moviedb?retryWrites=true&w=majority";
 const cors = require('cors');
@@ -34,3 +35,7 @@ app.post('/signup',SignIn)
 
 
 app.post('/login',LogIn)
+
+app.get('/api/movies/popular',fetchPopularMovies);
+
+app.get('/api/movies/latest',fetchLatestMovie);

@@ -9,10 +9,22 @@ const fetchPopularMovies = async(req,res) =>{
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log(data.results); 
+      res.json({popular:data.results}) 
     } catch (error) {
       console.error("Error fetching data:", error);
+      res.status(500).json({ message: "Failed to fetch the latest movie" });
     }
   }
 
-module.exports = {fetchPopularMovies};
+ const fetchLatestMovie =  async (req, res) => {
+    try {
+      const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=release_date.desc`);
+      const data = await response.json();
+      res.json({latest:data.results}); 
+    } catch (error) {
+      console.error("Error fetching the latest movie:", error);
+      res.status(500).json({ message: "Failed to fetch the latest movie" });
+    }
+  } 
+
+module.exports = {fetchPopularMovies , fetchLatestMovie};
