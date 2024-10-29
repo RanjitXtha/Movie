@@ -4,31 +4,43 @@ import { useState } from 'react';
 const Homepage = () => {
 
   const baseUrl = "https://image.tmdb.org/t/p/";
-  const posterSize = "w500";
+  const heroPosterSize = "w1280";
+  const moviePosterSize = 'w342'
 
-  const [hero , setHero] = useState([]);
+  const [activeIndex , setActiveIndex] = useState(0);
+
+  const [hero , setHero] = useState(null);
+  const [trending , setTrending] = useState(null);
+  const [Latest,setLatest] = useState(null);
   useEffect(()=>{
 
  
   const PopularMovies = async()=>{
     const response = await fetch('http://localhost:5000/api/movies/popular')
     const data = await response.json();
-    console.log(data);
+    setTrending(data.popular);
+    console.log(data.popular);
   } 
 
   const LatestMovies = async()=>{
     const response = await fetch('http://localhost:5000/api/movies/latest')
     const data = await response.json();
     setHero(data.latest.splice(0,5));
+    setLatest(data.latest);
+    //console.log(data.latest)
     
   } 
 
-  //PopularMovies();
+  PopularMovies();
   LatestMovies();
 },[])
+
+const buttons = [
+  1,2,3,4,5
+]
   return (
     <div>
-      <header className='w-full h-12 px-6 grid grid-cols-[14%_1fr_16%] gap-6 items-center bg-cyan-200 '>
+      <header className='w-full h-12 fixed z-50 px-6 grid grid-cols-[14%_1fr_16%] gap-6 items-center bg-cyan-200 '>
         <div className='w-14'>NEPFLIX</div>
 
         <div className='flex justify-center gap-10 '>
@@ -47,19 +59,44 @@ const Homepage = () => {
       </header>
     {
       hero &&
-        <section className='relative w-full h-[calc(100vh-3rem)] bg-slate-600'>
-        <p>{hero[0].title}</p>
-        <p>Genre:</p>
-        <span><p>Duration:</p><p>Rating</p></span>
-        <p>Description</p>
-        <button>
-          Watch Now
-        </button>
-        <img  src={`${baseUrl}${posterSize}${hero[0].poster_path}`}
-          alt={`${hero[0].title} poster`} className='absolute top-0 w-full' />
-      </section>
+      <section className='relative flex items-end w-full h-[calc(100vh-3rem)]'>
+        <div className='z-20 text-white'>
+          <p className='text-3xl'>{hero[activeIndex].title}</p>
+          <span><p>{hero[activeIndex].vote_average}</p></span>
+          <p>{hero[activeIndex].overview}</p>
+          <button>
+            Watch Now
+          </button>
+        </div>
+      
+        <img  src={`${baseUrl}${heroPosterSize}${hero[activeIndex].backdrop_path}`} //poster_path
+        alt={`${hero[activeIndex].title} poster`} className='z-[-1] absolute top-0 w-full' />
+
+        <div className='z-50 absolute h-10 w-52 bg-cyan-600 bottom-0 left-[50%]'>
+          {
+            buttons.map((button,index)=>(
+              <button onClick={()=>{setActiveIndex(index); console.log(activeIndex)}
+
+              } className={`${activeIndex===index?'bg-white':''} w-3 h-3 ring-2 mr-3 ring-white rounded-full`} key={index}></button>
+
+            ))
+          }
+        </div>
+    </section>
     
     }
+
+
+    <section>
+      <h1>Latest</h1>
+      { trending && trending.map((movie,index)=>(
+        <div className='w-52 h-64 bg-slate-500'>
+          <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} />
+        </div>
+      ))
+        
+      }
+    </section>
       
 
     </div>
