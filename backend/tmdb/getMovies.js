@@ -29,7 +29,7 @@ const fetchPopularMovies = async(req,res) =>{
   
 const fetchLatestTvShows = async (req, res) => {
   try {
-    const response = await fetch(`https://api.themoviedb.org/3/tv/on_the_air?api_key=${API_KEY}`);
+    const response = await fetch(`https://api.themoviedb.org/3/trending/tv/day?api_key=${API_KEY}`);
     const data = await response.json(); // Make sure to await here to properly parse JSON
     res.json({ latest: data.results });
   } catch (err) {
