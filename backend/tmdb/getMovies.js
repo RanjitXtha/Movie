@@ -18,7 +18,7 @@ const fetchPopularMovies = async(req,res) =>{
 
  const fetchLatestMovie =  async (req, res) => {
     try {
-      const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=release_date.desc`);
+      const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}`);
       const data = await response.json();
       res.json({latest:data.results}); 
     } catch (error) {
