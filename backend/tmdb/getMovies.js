@@ -25,6 +25,17 @@ const fetchPopularMovies = async(req,res) =>{
       console.error("Error fetching the latest movie:", error);
       res.status(500).json({ message: "Failed to fetch the latest movie" });
     }
-  } 
+  }
+  
+const fetchLatestTvShows = async (req, res) => {
+  try {
+    const response = await fetch(`https://api.themoviedb.org/3/tv/on_the_air?api_key=${API_KEY}`);
+    const data = await response.json(); // Make sure to await here to properly parse JSON
+    res.json({ latest: data.results });
+  } catch (err) {
+    console.log('Error during fetching latest tv shows: ' + err);
+    res.status(500).json({ message: 'Error during fetching latest tv shows' });
+  }
+};
 
-module.exports = {fetchPopularMovies , fetchLatestMovie};
+module.exports = {fetchPopularMovies , fetchLatestMovie , fetchLatestTvShows};

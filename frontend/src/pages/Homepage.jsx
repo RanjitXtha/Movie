@@ -11,28 +11,37 @@ const Homepage = () => {
 
   const [hero , setHero] = useState(null);
   const [trending , setTrending] = useState(null);
-  const [Latest,setLatest] = useState(null);
+  const [latestMovies,setLatestMovies] = useState(null);
+  const [latestTvShows , setLatestTvShows] = useState(null)
   useEffect(()=>{
 
  
   const PopularMovies = async()=>{
     const response = await fetch('http://localhost:5000/api/movies/popular')
     const data = await response.json();
-    setTrending(data.popular);
-    console.log(data.popular);
+    setTrending(data.popular.slice(0,11));
+    //console.log(data.popular);
   } 
 
   const LatestMovies = async()=>{
     const response = await fetch('http://localhost:5000/api/movies/latest')
     const data = await response.json();
     setHero(data.latest.splice(0,5));
-    setLatest(data.latest);
+    setLatestMovies(data.latest.slice(0,11));
     //console.log(data.latest)
     
   } 
 
+  const fetchLatestTvShows = async () => {
+      const response = await fetch('http://localhost:5000/api/tvshows/latest');
+      const data = await response.json();
+      console.log('Results:', data);
+      setLatestTvShows(data.latest.slice(0,11));
+  }
+
   PopularMovies();
   LatestMovies();
+  fetchLatestTvShows();
 },[])
 
 const buttons = [
@@ -88,14 +97,43 @@ const buttons = [
 
 
     <section>
-      <h1>Latest</h1>
+      <h1>Trending</h1>
+      <div className='flex flex-wrap'>
       { trending && trending.map((movie,index)=>(
-        <div className='w-52 h-64 bg-slate-500'>
+        <div className='w-52 h-64 flex-shrink-0 bg-slate-500'>
           <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} />
         </div>
       ))
         
       }
+      </div>
+    </section>
+
+
+    <section>
+      <h1>Latest</h1>
+      <div className='flex flex-wrap'>
+      { latestMovies && latestMovies.map((movie,index)=>(
+        <div className='w-52 h-64 flex-shrink-0 bg-slate-500'>
+          <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} />
+        </div>
+      ))
+        
+      }
+      </div>
+    </section>
+
+    <section>
+      <h1>Latest</h1>
+      <div className='flex flex-wrap'>
+      { latestTvShows && latestTvShows.map((movie,index)=>(
+        <div className='w-52 h-64 flex-shrink-0 bg-slate-500'>
+          <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} />
+        </div>
+      ))
+        
+      }
+      </div>
     </section>
       
 
