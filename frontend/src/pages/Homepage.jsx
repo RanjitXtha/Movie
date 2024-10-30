@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Homepage = () => {
 
@@ -35,7 +36,7 @@ const Homepage = () => {
   const fetchLatestTvShows = async () => {
       const response = await fetch('http://localhost:5000/api/tvshows/latest');
       const data = await response.json();
-      console.log('Results:', data);
+      //console.log('Results:', data);
       setLatestTvShows(data.latest.slice(0,11));
   }
 
@@ -100,9 +101,11 @@ const buttons = [
       <h1>Trending</h1>
       <div className='flex flex-wrap'>
       { trending && trending.map((movie,index)=>(
+        <Link to={`/api/movies/movie/${movie.id}`}>
         <div className='w-52 h-64 flex-shrink-0 bg-slate-500'>
-          <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} />
+          <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
         </div>
+        </Link>
       ))
         
       }
@@ -114,9 +117,11 @@ const buttons = [
       <h1>Latest</h1>
       <div className='flex flex-wrap'>
       { latestMovies && latestMovies.map((movie,index)=>(
+        <Link to={`/api/movies/movie/${movie.id}`}>
         <div className='w-52 h-64 flex-shrink-0 bg-slate-500'>
-          <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} />
+          <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
         </div>
+        </Link>
       ))
         
       }
@@ -127,9 +132,11 @@ const buttons = [
       <h1>Latest</h1>
       <div className='flex flex-wrap'>
       { latestTvShows && latestTvShows.map((movie,index)=>(
+        <Link to={`/api/movies/movie/${movie.id}`}>
         <div className='w-52 h-64 flex-shrink-0 bg-slate-500'>
-          <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} />
+          <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
         </div>
+        </Link>
       ))
         
       }

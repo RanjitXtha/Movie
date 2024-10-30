@@ -1,4 +1,3 @@
-const access_token_key = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2N2E2ZDViMzEzZDBhMWNmZDlkYTlmOWJkMGU0ZTQ3NSIsIm5iZiI6MTczMDExMjgzMi4wMjg4NTEsInN1YiI6IjY3MWY2YWI1MWVhMzM5MjgyOTdkYjcxZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2awqv6l8i_1r-MPvnOjmV09Di_ocFNol5hGlOJUOeCA';
 const API_KEY = '67a6d5b313d0a1cfd9da9f9bd0e4e475';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -38,4 +37,16 @@ const fetchLatestTvShows = async (req, res) => {
   }
 };
 
-module.exports = {fetchPopularMovies , fetchLatestMovie , fetchLatestTvShows};
+const fetchMoviePage = async(req,res)=>{
+  const movieId = req.params.id; 
+  //console.log(movieId);
+  //console.log(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`)
+  const response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`);
+  const movieData = await response.json()
+  const trailerResponse = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`)
+  const movieTrailer = await trailerResponse.json()
+  //console.log(movieData);
+  res.json({details:movieData , trailer:movieTrailer})
+}
+
+module.exports = {fetchPopularMovies , fetchLatestMovie , fetchLatestTvShows , fetchMoviePage};
