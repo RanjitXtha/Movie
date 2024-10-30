@@ -18,14 +18,14 @@ const Homepage = () => {
 
  
   const PopularMovies = async()=>{
-    const response = await fetch('http://localhost:5000/api/movies/popular')
+    const response = await fetch(`http://localhost:5000/api/movies/popular`)
     const data = await response.json();
     setTrending(data.popular.slice(0,11));
     //console.log(data.popular);
   } 
 
   const LatestMovies = async()=>{
-    const response = await fetch('http://localhost:5000/api/movies/latest')
+    const response = await fetch(`http://localhost:5000/api/movies/latest`)
     const data = await response.json();
     setHero(data.latest.splice(0,5));
     setLatestMovies(data.latest.slice(0,11));
@@ -34,7 +34,7 @@ const Homepage = () => {
   } 
 
   const fetchLatestTvShows = async () => {
-      const response = await fetch('http://localhost:5000/api/tvshows/latest');
+      const response = await fetch(`http://localhost:5000/api/tvshows/latest`);
       const data = await response.json();
       //console.log('Results:', data);
       setLatestTvShows(data.latest.slice(0,11));
@@ -54,10 +54,10 @@ const buttons = [
         <div className='w-14'>NEPFLIX</div>
 
         <div className='flex justify-center gap-10 '>
-          <nav>Home</nav>
-          <nav>Genre</nav>
-          <nav>Movies</nav>
-          <nav>TV Shows</nav>
+          <nav><Link to="/">Home</Link></nav>
+          <nav><Link to="">Genre</Link></nav>
+          <nav><Link to="/api/movies">Movies</Link></nav>
+          <nav><Link to="/api/tvshows">TV Shows</Link></nav>
         </div>
 
         <div>
