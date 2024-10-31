@@ -1,38 +1,71 @@
 const API_KEY = '67a6d5b313d0a1cfd9da9f9bd0e4e475';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
-const handleMovies = async(req,res)=>{
+const handleMovies = (req,res)=>{
   const category = req.params.category;
-  console.log(category);
+  //console.log(category);
+
+  const fetchPopularMovies = async(req,res) =>{
+    const page = req.query.page || 1;
+      try {
+        const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        res.json({results:data.results}) 
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json({ message: "Failed to fetch the latest movie" });
+      }
+    }
+  
+   const fetchLatestMovie =  async (req, res) => {
+      const page = req.query.page || 1;
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${page}`);
+        const data = await response.json();
+        res.json({results:data.results}); 
+      } catch (error) {
+        console.error("Error fetching the latest movie:", error);
+        res.status(500).json({ message: "Failed to fetch the latest movie" });
+      }
+    }
+
+    const fetchMoviesByGenre = async(req,res)=>{
+      console.log("Here")
+      const genreType = req.query.genreType;
+      const page = req.query.page;
+      console.log('TYpe:'+ genreType + page)
+      const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreType}
+    `);
+      const movies = await response.json()
+      res.json({results:movies})
+    }
+    
+
+    switch(category){
+      case 'latest':{
+        fetchLatestMovie(req,res);
+        break;
+        }
+      case 'popular':{
+        fetchPopularMovies(req,res);
+        break;
+      } 
+      case 'genre':{
+        fetchMoviesByGenre(req,res);
+        break;
+      }
+      default:
+        return ;
+    }
+
+  
 
 }
 
-const fetchPopularMovies = async(req,res) =>{
-  const page = req.query.page || 1;
-    try {
-      const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      res.json({results:data.results}) 
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      res.status(500).json({ message: "Failed to fetch the latest movie" });
-    }
-  }
 
- const fetchLatestMovie =  async (req, res) => {
-    const page = req.query.page || 1;
-    try {
-      const response = await fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&page=${page}`);
-      const data = await response.json();
-      res.json({results:data.results}); 
-    } catch (error) {
-      console.error("Error fetching the latest movie:", error);
-      res.status(500).json({ message: "Failed to fetch the latest movie" });
-    }
-  }
   
 const fetchLatestTvShows = async (req, res) => {
   try {
@@ -58,23 +91,15 @@ const fetchMoviePage = async(req,res)=>{
 
 
 const fetchMovieGenres = async(req,res)=>{
-  
   const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
-  const genres = await response.json()
-  console.log(genres)
+  const genres = await response.json();
+  //console.log("Request sent")
+  //console.log(genres)
   res.json({results:genres})
 }
 
-const fetchMoviesByGenre = async(req,res)=>{
-  const id = req.params.id;
-  console.log(id)
-  const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=28
-`);
-  const movies = await response.json()
-  res.json({results:movies})
-}
 
-module.exports = { handleMovies,fetchPopularMovies , fetchLatestMovie , fetchLatestTvShows , fetchMoviePage,
-   fetchMovieGenres, fetchMoviesByGenre,
+module.exports = { handleMovies , fetchLatestTvShows , fetchMoviePage,
+   fetchMovieGenres
 };
   

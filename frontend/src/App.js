@@ -14,8 +14,8 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/login' element={<HomeRoute><Login /></HomeRoute>} />
           <Route path='/signup' element={<HomeRoute><SignIn /></HomeRoute>} />
-          <Route path='/api/movies' element={<Movies />} />
-          <Route path='/api/moviesbygenre' element={<Movies />} />
+    
+          <Route path='/api/movies/:category' element={<Movies />} />
           <Route path='/api/movies/movie/:id' element={<Moviepage />} />
         </Routes>
       </Router>

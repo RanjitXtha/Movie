@@ -42,15 +42,16 @@ const Homepage = () => {
   }
 
   const fetchMovieGenres = async () => {
-    const response = await fetch(`http://localhost:5000/api/movies/genres`);
+    const response = await fetch(`http://localhost:5000/api/genres/movies`);
     const data = await response.json();
-    console.log( data.results.genres);
-    setMovieGenres(data.results.genres.slice(0,11));
+    //console.log( data.results.genres);
+    setMovieGenres(data.results.genres);
 }
 
   PopularMovies();
   LatestMovies();
   fetchLatestTvShows();
+
   fetchMovieGenres();
 },[])
 
@@ -66,15 +67,23 @@ const buttons = [
           <nav><Link to="/">Home</Link></nav>
           <nav className='relative'>
             <Link to="">Genre</Link>
-            <div className='absolute w-56  bg-cyan-500 top-0 left-0 z-[200]'>
-                {
-                  movieGenres && movieGenres.map((genre)=>(
-                    <p>{genre.name}</p>
-                  ))
-                }
+            <div className='absolute w-56 bg-cyan-500  top-[5rem] left-0 z-[200]'>
+              {
+                    movieGenres && movieGenres.map((genre)=>(
+                      <Link to={`/api/movies/genre?genreType=${genre.id}&page=1`}>
+                        <p>{genre.name}</p>
+                      </Link>
+                    ))
+                  }
             </div>
           </nav>
-          <nav><Link to="/api/movies">Movies</Link></nav>
+          <nav className='relative'><Link to="">Movies</Link>
+          <div className='absolute w-56 bg-cyan-500  top-[5rem] left-0 z-[200]'>
+                <nav><Link to="api/movies/latest">Latest</Link></nav>
+                <nav><Link to="api/movies/popular">Popular</Link></nav>
+                <nav><Link to="">Upcoming</Link></nav>
+            </div>
+          </nav>
           <nav><Link to="/api/tvshows">TV Shows</Link></nav>
         </div>
 
