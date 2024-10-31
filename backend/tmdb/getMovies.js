@@ -1,6 +1,12 @@
 const API_KEY = '67a6d5b313d0a1cfd9da9f9bd0e4e475';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
+const handleMovies = async(req,res)=>{
+  const category = req.params.category;
+  console.log(category);
+
+}
+
 const fetchPopularMovies = async(req,res) =>{
   const page = req.query.page || 1;
     try {
@@ -32,7 +38,7 @@ const fetchLatestTvShows = async (req, res) => {
   try {
     const response = await fetch(`https://api.themoviedb.org/3/trending/tv/day?api_key=${API_KEY}`);
     const data = await response.json(); // Make sure to await here to properly parse JSON
-    res.json({ latest: data.results });
+    res.json({ results: data.results });
   } catch (err) {
     console.log('Error during fetching latest tv shows: ' + err);
     res.status(500).json({ message: 'Error during fetching latest tv shows' });
@@ -50,4 +56,25 @@ const fetchMoviePage = async(req,res)=>{
   res.json({details:movieData , trailer:movieTrailer})
 }
 
-module.exports = {fetchPopularMovies , fetchLatestMovie , fetchLatestTvShows , fetchMoviePage};
+
+const fetchMovieGenres = async(req,res)=>{
+  
+  const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
+  const genres = await response.json()
+  console.log(genres)
+  res.json({results:genres})
+}
+
+const fetchMoviesByGenre = async(req,res)=>{
+  const id = req.params.id;
+  console.log(id)
+  const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=28
+`);
+  const movies = await response.json()
+  res.json({results:movies})
+}
+
+module.exports = { handleMovies,fetchPopularMovies , fetchLatestMovie , fetchLatestTvShows , fetchMoviePage,
+   fetchMovieGenres, fetchMoviesByGenre,
+};
+  

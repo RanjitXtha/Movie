@@ -14,21 +14,22 @@ const Homepage = () => {
   const [trending , setTrending] = useState(null);
   const [latestMovies,setLatestMovies] = useState(null);
   const [latestTvShows , setLatestTvShows] = useState(null)
+  const [movieGenres , setMovieGenres] = useState(null)
   useEffect(()=>{
 
  
   const PopularMovies = async()=>{
     const response = await fetch(`http://localhost:5000/api/movies/popular`)
     const data = await response.json();
-    setTrending(data.popular.slice(0,11));
-    //console.log(data.popular);
+    setTrending(data.results.slice(0,11));
+    //console.log(data.results);
   } 
 
   const LatestMovies = async()=>{
     const response = await fetch(`http://localhost:5000/api/movies/latest`)
     const data = await response.json();
-    setHero(data.latest.splice(0,5));
-    setLatestMovies(data.latest.slice(0,11));
+    setHero(data.results.slice(0,5));
+    setLatestMovies(data.results.slice(0,11));
     //console.log(data.latest)
     
   } 
@@ -37,12 +38,20 @@ const Homepage = () => {
       const response = await fetch(`http://localhost:5000/api/tvshows/latest`);
       const data = await response.json();
       //console.log('Results:', data);
-      setLatestTvShows(data.latest.slice(0,11));
+      setLatestTvShows(data.results.slice(0,11));
   }
+
+  const fetchMovieGenres = async () => {
+    const response = await fetch(`http://localhost:5000/api/movies/genres`);
+    const data = await response.json();
+    console.log( data.results.genres);
+    setMovieGenres(data.results.genres.slice(0,11));
+}
 
   PopularMovies();
   LatestMovies();
   fetchLatestTvShows();
+  fetchMovieGenres();
 },[])
 
 const buttons = [
@@ -55,7 +64,16 @@ const buttons = [
 
         <div className='flex justify-center gap-10 '>
           <nav><Link to="/">Home</Link></nav>
-          <nav><Link to="">Genre</Link></nav>
+          <nav className='relative'>
+            <Link to="">Genre</Link>
+            <div className='absolute w-56  bg-cyan-500 top-0 left-0 z-[200]'>
+                {
+                  movieGenres && movieGenres.map((genre)=>(
+                    <p>{genre.name}</p>
+                  ))
+                }
+            </div>
+          </nav>
           <nav><Link to="/api/movies">Movies</Link></nav>
           <nav><Link to="/api/tvshows">TV Shows</Link></nav>
         </div>
