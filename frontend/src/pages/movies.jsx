@@ -10,7 +10,6 @@ const Movies = () => {
   
   const [movies , setMovies] = useState(null);
   const baseUrl = "https://image.tmdb.org/t/p/";
-   const heroPosterSize = "w1280";
   const moviePosterSize = 'w342'
 
   const Popular = async()=>{
