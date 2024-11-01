@@ -9,7 +9,7 @@ const MovieTVsection = ({title , movies}) => {
   return (
     <section className='text-white px-[3rem]'>
         <h1 className='titles'>{title}</h1>
-        <div className='flex overflow-x-scroll gap-3'>
+        <div className='flex overflow-x-scroll gap-3 hide-scrollbar'>
         { movies && movies.map((movie)=>(
         <Link to={`/api/movies/movie/${movie.id}`}>
         <div key={movie.id} className='w-52 h-64 flex-shrink-0 bg-slate-500'>

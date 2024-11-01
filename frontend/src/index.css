@@ -9,6 +9,10 @@ img{
     object-fit:cover;
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+    display: none; 
+  }
+
 @layer components{
     .titles{
         @apply text-2xl font-bold mb-6
