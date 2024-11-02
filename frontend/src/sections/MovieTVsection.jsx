@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Circle from './circle';
 
 const MovieTVsection = ({title , type, movies}) => {
   const baseUrl = "https://image.tmdb.org/t/p/";
@@ -19,12 +20,10 @@ const MovieTVsection = ({title , type, movies}) => {
             <p className="font-bold w-[185px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
               {movie.title}
             </p>
-              <span className='text-sm flex gap-4'>
-                <p>{type==="movie"?movie.release_date.substring(0,4):movie.first_air_date.substring(0,4)}</p>
-                <p>Rating: {movie.vote_average.toFixed(1)}</p>
-
-              </span>
-             
+            <span className='text-sm flex gap-4'>
+              <p>{type==="movie"?movie.release_date.substring(0,4):movie.first_air_date.substring(0,4)}</p>
+              <p>Rating: {movie.vote_average.toFixed(1)}</p>
+            </span>
             </div>
         </Link>
         ))
