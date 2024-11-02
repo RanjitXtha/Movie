@@ -15,7 +15,11 @@ img{
 
 @layer components{
     .titles{
-        @apply text-2xl font-bold mb-6
+        @apply text-3xl font-bold mb-8
+    }
+
+    .padding{
+        @apply px-[4rem]
     }
     
 }

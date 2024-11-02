@@ -3,7 +3,7 @@ import React, {useState, useEffect } from 'react';
 
 const Hero = () => {
   const baseUrl = "https://image.tmdb.org/t/p/";
-  const heroPosterSize = "w1280";
+  const heroPosterSize = "original";
   const moviePosterSize = 'w342';
   
   const [hero , setHero] = useState(null);
@@ -29,7 +29,7 @@ const Hero = () => {
     {
       hero &&
       <section className='mb-[5rem] relative py-[3rem] flex items-end w-full h-[calc(100vh-3rem)]'>
-        <div className='px-[3rem] flex gap-5 w-full'>
+        <div className='padding flex gap-5 w-full'>
           <div className='w-[13rem] h-[18rem] z-20'>
               <img className='object-fill' src={`${baseUrl}${moviePosterSize}${hero[activeIndex].poster_path}`} alt={hero[activeIndex].title} />
           </div>
@@ -56,7 +56,7 @@ const Hero = () => {
         <img  src={`${baseUrl}${heroPosterSize}${hero[activeIndex].backdrop_path}`} //poster_path
         alt={`${hero[activeIndex].title} poster`} className='z-0 lur-[1px] opacity-60 absolute top-0 w-full' />
 
-        <div className='z-50 flex justify-center w-full absolute h-10 bottom-0'>
+        <div className='z-10 flex justify-center w-full absolute h-10 bottom-0'>
           {
             buttons.map((button,index)=>(
               <button onClick={()=>{setActiveIndex(index); console.log(activeIndex)}

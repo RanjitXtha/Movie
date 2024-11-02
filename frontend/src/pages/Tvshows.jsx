@@ -24,6 +24,27 @@ const Tvshows = () => {
             setTvShows(data.results);
         
           };
+
+          const OnTheAir = async()=>{
+            const response = await fetch(`http://localhost:5000/api/tv/on_the_air?page=1`)
+            const data = await response.json();
+            setTvShows(data.results);
+        
+          };
+
+          const TopRated = async()=>{
+            const response = await fetch(`http://localhost:5000/api/tv/top_rated?page=1`)
+            const data = await response.json();
+            setTvShows(data.results);
+        
+          };
+
+          const AiringToday = async()=>{
+            const response = await fetch(`http://localhost:5000/api/tv/airing_today?page=1`)
+            const data = await response.json();
+            setTvShows(data.results);
+        
+          };
           switch(category.category){
             case 'latest':{
               console.log("Hlelo")
@@ -34,6 +55,19 @@ const Tvshows = () => {
               Popular();
               break;
             }
+            case 'on_the_air':{
+              OnTheAir();
+              break;
+            }
+            case 'top_rated':{
+              TopRated();
+              break;
+            }
+            case 'airing_today':{
+              AiringToday();
+              break;
+            }
+            default: return;
            
           }
 
@@ -44,7 +78,7 @@ const Tvshows = () => {
         <h1>This is a tv show page</h1>
         <div className='flex flex-wrap'>
         { tvShows && tvShows.map((tv,index)=>(
-            <Link to={`/api/tv/movie/${tv.id}`}>
+            <Link to={`/api/tv/${tv.id}`}>
             <div className='w-52 h-64 flex-shrink-0 bg-slate-500'>
             <img src={`${baseUrl}${moviePosterSize}${tv.poster_path}`} alt={tv.title} />
             </div>

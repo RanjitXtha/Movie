@@ -13,7 +13,8 @@ const Homepage = () => {
 
   const [trendingMovies , setTrending] = useState(null);
   const [latestMovies,setLatestMovies] = useState(null);
-  const [latestTvShows , setLatestTvShows] = useState(null)
+  const [latestTvShows , setLatestTvShows] = useState(null);
+  const [topRatedTvShows , settopRatedTvShows] = useState(null)
 
   useEffect(()=>{
 
@@ -21,7 +22,7 @@ const Homepage = () => {
   const PopularMovies = async()=>{
     const response = await fetch(`http://localhost:5000/api/movies/popular`)
     const data = await response.json();
-    setTrending(data.results.slice(0,11));
+    setTrending(data.results.slice(0,12));
     //console.log(data.results);
   } 
 
@@ -29,23 +30,31 @@ const Homepage = () => {
     const response = await fetch(`http://localhost:5000/api/movies/latest`)
     const data = await response.json();
     
-    setLatestMovies(data.results.slice(0,11));
+    setLatestMovies(data.results.slice(0,12));
     //console.log(data.latest)
     
   } 
 
   const fetchLatestTvShows = async () => {
-      const response = await fetch(`http://localhost:5000/api/tvshows/latest`);
+      const response = await fetch(`http://localhost:5000/api/tv/on_the_air`);
       const data = await response.json();
-      //console.log('Results:', data);
-      setLatestTvShows(data.results.slice(0,11));
+      console.log('Results:', data);
+      setLatestTvShows(data.results.slice(0,12));
   }
+
+  const fetchTopRatedTvShows = async () => {
+    const response = await fetch(`http://localhost:5000/api/tv/top_rated`);
+    const data = await response.json();
+    console.log('Results:', data);
+    settopRatedTvShows(data.results.slice(0,12));
+}
 
 
 
   PopularMovies();
   LatestMovies();
   fetchLatestTvShows();
+  fetchTopRatedTvShows();
 },[])
 
 
@@ -55,13 +64,16 @@ const Homepage = () => {
       <Hero />
 
       {/*Trending */}
-      <MovieTVsection title={"Trending"} movies={trendingMovies}  />
+      <MovieTVsection title={"Trending"} type={"movie"} movies={trendingMovies}  />
 
-      {/*Trending */}
-      <MovieTVsection title={"Latest"} movies={latestMovies}  />
+      {/*Latest */}
+      <MovieTVsection title={"Latest"} type={"movie"} movies={latestMovies}  />
 
-      {/*Trending */}
-      <MovieTVsection title={"TV Shows"} movies={latestTvShows}  />
+      {/*Latest*/}
+      <MovieTVsection title={"TV Shows"} type={"tv"} movies={latestTvShows}  />
+
+      {/*Top Rated */}
+      <MovieTVsection title={"Top Rated"} type={"tv"} movies={topRatedTvShows}  />
 
   
 
