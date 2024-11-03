@@ -9,6 +9,7 @@ const {fetchMoviePage,
 const {fetchMovieGenres , fetchTvShowsGenres} = require('./tmdb/getGenres');
 
 const {handleTvShows} = require('./tmdb/getTvShows');
+const {handleMovieData} = require('./tmdb/getMovieDetails');
 
 const dbURL = "mongodb+srv://alienshooternp:herecomesthepain12@nodetesting.ljo8jbk.mongodb.net/moviedb?retryWrites=true&w=majority";
 const cors = require('cors');
@@ -50,6 +51,8 @@ app.get('/api/movies/movie/:id',fetchMoviePage)
 
 
 app.get('/api/tv/:category',handleTvShows);
+
+app.get('/api/movies/info/:movieId',handleMovieData);
 
 
 
