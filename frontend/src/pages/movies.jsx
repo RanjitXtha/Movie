@@ -37,7 +37,7 @@ const Movies = () => {
       fetchMovieGenres();
 
     }else{
-      setCategory(category.category.toUpperCase());
+      setCategory(category.category.charAt(0).toUpperCase() + category.category.slice(1));
     }
 
     switch (category.category) {

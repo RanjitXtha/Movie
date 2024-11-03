@@ -31,7 +31,7 @@ const Header = () => {
     <header className='w-full h-12 fixed z-50 padding py-[1rem] grid grid-cols-[15%_1fr_21%] gap-6 items-center text-white font-medium '>
         <div className='w-14'>NEPFLIX</div>
 
-        <div className='flex justify-center gap-10 '>
+        <div className='header-navs flex justify-center gap-10 '>
           <nav><Link to="/">Home</Link></nav>
 
           <nav className='relative group'>
@@ -50,8 +50,8 @@ const Header = () => {
           <nav className='relative group'>
             <Link to="">Movies</Link>
             <div className='hidden group-hover:block p-4 absolute w-56 bg-cyan-500  top-[1.7rem] left-0 z-[200]'>
-              <nav><Link to="api/movies/latest">Latest</Link></nav>
-              <nav><Link to="api/movies/popular">Popular</Link></nav>
+              <nav><Link to="/api/movies/latest">Latest</Link></nav>
+              <nav><Link to="/api/movies/popular">Popular</Link></nav>
               <nav><Link to="">Upcoming</Link></nav>
             </div>
           </nav>

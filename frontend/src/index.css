@@ -23,3 +23,8 @@ img{
     }
     
 }
+
+.header-navs nav{
+    height:100%;
+    padding-bottom:1rem;
+}
