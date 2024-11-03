@@ -32,11 +32,9 @@ const handleTvShows =(req,res)=>{
         };
 
         const fetchPopularTvShows = async (req, res) => {
-          //console.log("request obtained")
             try {
               const response = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}`);
               const data = await response.json(); 
-              //console.log(data.results)
               res.json({ results: data.results });
             } catch (err) {
               console.log('Error during fetching latest tv shows: ' + err);

@@ -10,68 +10,40 @@ const Tvshows = () => {
     const category = useParams();
     console.log(category)
 
-    useEffect(()=>{
-        const Popular = async()=>{
-            const response = await fetch(`http://localhost:5000/api/tv/popular?page=1`)
-            const data = await response.json();
-            setTvShows(data.results);
-        
-          };
-        
-          const Latest = async()=>{
-            const response = await fetch(`http://localhost:5000/api/tv/latest?page=1`)
-            const data = await response.json();
-            setTvShows(data.results);
-        
-          };
-
-          const OnTheAir = async()=>{
-            const response = await fetch(`http://localhost:5000/api/tv/on_the_air?page=1`)
-            const data = await response.json();
-            setTvShows(data.results);
-        
-          };
-
-          const TopRated = async()=>{
-            const response = await fetch(`http://localhost:5000/api/tv/top_rated?page=1`)
-            const data = await response.json();
-            setTvShows(data.results);
-        
-          };
-
-          const AiringToday = async()=>{
-            const response = await fetch(`http://localhost:5000/api/tv/airing_today?page=1`)
-            const data = await response.json();
-            setTvShows(data.results);
-        
-          };
-          switch(category.category){
-            case 'latest':{
-              console.log("Hlelo")
-              Latest();
-              break;
-            }
-            case 'popular':{
-              Popular();
-              break;
-            }
-            case 'on_the_air':{
-              OnTheAir();
-              break;
-            }
-            case 'top_rated':{
-              TopRated();
-              break;
-            }
-            case 'airing_today':{
-              AiringToday();
-              break;
-            }
-            default: return;
-           
-          }
-
-    },[category])
+    useEffect(() => {
+      const fetchTvShows = async (url) => {
+        const response = await fetch(url);
+        const data = await response.json();
+        setTvShows(data.results);
+      };
+    
+      const Popular = () => fetchTvShows(`http://localhost:5000/api/tv/popular?page=1`);
+      const Latest = () => fetchTvShows(`http://localhost:5000/api/tv/latest?page=1`);
+      const OnTheAir = () => fetchTvShows(`http://localhost:5000/api/tv/on_the_air?page=1`);
+      const TopRated = () => fetchTvShows(`http://localhost:5000/api/tv/top_rated?page=1`);
+      const AiringToday = () => fetchTvShows(`http://localhost:5000/api/tv/airing_today?page=1`);
+    
+      switch (category.category) {
+        case 'latest':
+          console.log("Hello");
+          Latest();
+          break;
+        case 'popular':
+          Popular();
+          break;
+        case 'on_the_air':
+          OnTheAir();
+          break;
+        case 'top_rated':
+          TopRated();
+          break;
+        case 'airing_today':
+          AiringToday();
+          break;
+        default:
+          return;
+      }
+    }, [category]);
    
   return (
     <div>

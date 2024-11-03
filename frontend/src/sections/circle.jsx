@@ -1,4 +1,4 @@
-const circle = ({ score }) => {
+const Circle = ({ score }) => {
     // Convert score to percentage
     const percentage = (score / 10) * 100;
   
@@ -37,4 +37,4 @@ const circle = ({ score }) => {
     );
   };
   
-  export default circle;
+  export default Circle;

@@ -20,7 +20,6 @@ const Movies = () => {
     const response = await fetch(url);
     const data = await response.json();
     category.category === 'genre'?setMovies(data.results.results): setMovies(data.results); 
-   // Adjust based on API structure
   };
 
   const Popular = () => fetchMovies(`http://localhost:5000/api/movies/popular?page=${page}`);
@@ -28,7 +27,18 @@ const Movies = () => {
   const ByGenre = () => fetchMovies(`http://localhost:5000/api/movies/genre?genreType=${genreType}&page=${page}`);
 
   useEffect(() => {
-    category.category === 'genre' ? setCategory(genreType) : setCategory(category.category.toUpperCase());
+    if(category.category === 'genre'){
+      const fetchMovieGenres = async () => {
+        const response = await fetch(`http://localhost:5000/api/genres/movies`);
+        const data = await response.json();
+        const genre = data.results.genres.find(e=>e.id === parseInt(genreType))
+       setCategory(genre.name)
+      }
+      fetchMovieGenres();
+
+    }else{
+      setCategory(category.category.toUpperCase());
+    }
 
     switch (category.category) {
       case 'latest':
@@ -43,14 +53,15 @@ const Movies = () => {
       default:
         break;
     }
-  }, [category, page]); // Trigger useEffect when page changes
+  }, [category, page ,genreType]); // Trigger useEffect when page changes
 
   const buttons = [1, 2, 3, 4, 5];
 
   return (
     <div className='bg-black text-white'>
+      <Header />
       <section className='pt-[5rem] padding'>
-        <h1 className='titles'>Movies</h1>
+        <h1 className='titles'>{pageCategory} Movies</h1>
 
         <div className='flex flex-wrap gap-y-6 justify-between'>
           {movies && movies.map((movie) => (
