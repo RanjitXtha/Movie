@@ -25,15 +25,16 @@ const Movies = () => {
   const Popular = () => fetchMovies(`http://localhost:5000/api/movies/popular?page=${page}`);
   const Latest = () => fetchMovies(`http://localhost:5000/api/movies/latest?page=${page}`);
   const ByGenre = () => fetchMovies(`http://localhost:5000/api/movies/genre?genreType=${genreType}&page=${page}`);
-
+  const fetchMovieGenres = async () => {
+    const response = await fetch(`http://localhost:5000/api/genres/movies`);
+    const data = await response.json();
+    const genre = data.results.genres.find(e=>e.id === parseInt(genreType))
+   setCategory(genre.name)
+  }
+ 
   useEffect(() => {
     if(category.category === 'genre'){
-      const fetchMovieGenres = async () => {
-        const response = await fetch(`http://localhost:5000/api/genres/movies`);
-        const data = await response.json();
-        const genre = data.results.genres.find(e=>e.id === parseInt(genreType))
-       setCategory(genre.name)
-      }
+      
       fetchMovieGenres();
 
     }else{
@@ -42,18 +43,21 @@ const Movies = () => {
 
     switch (category.category) {
       case 'latest':
+        setPage(1)
         Latest();
         break;
       case 'popular':
+        setPage(1)
         Popular();
         break;
       case 'genre':
+        setPage(1)
         ByGenre();
         break;
       default:
         break;
     }
-  }, [category, page ,genreType]); // Trigger useEffect when page changes
+  }, [category, page, genreType]); // Trigger useEffect when page changes
 
   const buttons = [1, 2, 3, 4, 5];
 
