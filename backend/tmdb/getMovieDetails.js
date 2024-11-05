@@ -13,6 +13,7 @@ const handleMovieData = async(req,res)=>{
     const details = {
         castData , similarMovies
     }
+    //console.log(castData);
     res.json(details);
 }catch(err){
     console.log(err);

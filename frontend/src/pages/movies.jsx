@@ -23,22 +23,24 @@ const Movies = () => {
     const response = await fetch(url);
     const data = await response.json();
     setTotalPages(data.total_pages)
+    console.log('pages'+ data.total_pages)
     setMovies(data.results); 
   };
 
   const Popular = () => fetchMovies(`http://localhost:5000/api/movies/popular?page=${page}`);
   const Latest = () => fetchMovies(`http://localhost:5000/api/movies/latest?page=${page}`);
   const ByGenre = () => fetchMovies(`http://localhost:5000/api/movies/genre?genreType=${genreType}&page=${page}`);
+
   const fetchMovieGenres = async () => {
     const response = await fetch(`http://localhost:5000/api/genres/movies`);
     const data = await response.json();
     const genre = data.results.genres.find(e=>e.id === parseInt(genreType))
-   setCategory(genre.name)
+    setCategory(genre.name)
   }
 
   useEffect(()=>{
-    setPage(1)
-  },[category])
+    setPage(1);
+  },[category, genreType])
  
   useEffect(() => {
     if(category.category === 'genre'){
@@ -62,7 +64,7 @@ const Movies = () => {
       default:
         break;
     }
-  }, [category, page, genreType]); // Trigger useEffect when page changes
+  }, [category, page, genreType]); 
 
  
 
@@ -70,7 +72,10 @@ const Movies = () => {
     <div className='bg-black text-white'>
       <Header />
       <section className='pt-[5rem] padding'>
-        <PageButtons setPage={setPage} page={page} />
+ 
+          <PageButtons setPage={setPage} totalPages={totalPages} />
+
+      
         <h1 className='titles'>{pageCategory} Movies</h1>
 
         <div className='flex flex-wrap gap-y-6 justify-between'>
@@ -92,9 +97,6 @@ const Movies = () => {
           ))}
         </div>
       </section>
-      
-      <PageButtons setPage={setPage} page={page} totalPages={totalPages} />
-     
     </div>
   );
 };

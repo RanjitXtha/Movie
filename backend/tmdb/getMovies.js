@@ -37,7 +37,7 @@ const handleMovies = (req,res)=>{
       const response = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${genreType}&page=${page}
     `);
       const movies = await response.json()
-      res.json({results:movies.results})
+      res.json({results:movies.results,total_pages:movies.total_pages})
     }
     
 

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Header from '../sections/Header';
 import Ratingbar from '../Components/Ratingbar';
 import MovieTVSection from '../sections/MovieTVsection';
+import { useRef } from 'react';
+import Profile from '../assets/profile.jpg'
 
 const Moviepage = () => {
   const [movie, setMovie] = useState(null);
@@ -12,10 +14,17 @@ const Moviepage = () => {
   const [recommendation , setRecommendation]= useState([]);
 
     const {id:movieId} = useParams();
-    //console.log(movieId);
 
     const baseUrl = "https://image.tmdb.org/t/p/";
     const moviePosterSize = 'w342';
+
+    const scrollContainerRef = useRef(null);
+
+    const scroll = (scrollOffset) => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollLeft += scrollOffset;
+      }
+    }
 
     useEffect(()=>{
         const getMovie = async()=>{
@@ -30,22 +39,19 @@ const Moviepage = () => {
            const response = await fetch(`http://localhost:5000/api/movies/info/${movieId}`);
        
           const data = await response.json();
-          console.log(data);
           setCast(data.castData.cast);
           setRecommendation(data.similarMovies.results.slice(0,12));
         }
         fetchMovieDetails();
        getMovie();
     },[movieId])
-
+    console.log(cast)
     if (!movie) return <div>Loading...</div>;
 
   return (
     <div className=' bg-black text-white'>
        <Header />
- <div  className='padding' >
-     
-     
+    <div  className='padding' >
       { movie &&
           <iframe
               className='w-full h-[40rem] pt-[4rem]'
@@ -56,12 +62,12 @@ const Moviepage = () => {
           ></iframe>
       }
 
-      <div className='flex gap-6 mt-14'>
-        <div>
-          <img className='w-[342px]' src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
+      <div className='flex gap-6 mt-[3rem]'>
+        <div className='w-[20rem] h-auto'>
+          <img className='object-contain' src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
         </div>
 
-        <div className='flex flex-col gap-3'>
+        <div className='flex w-full flex-col gap-3'>
           <h1 className='font-bold text-2xl'>{movie.title}</h1>
           <span className='flex gap-5'>
             {movie.genres.map((genre)=>(
@@ -83,19 +89,43 @@ const Moviepage = () => {
               ))
             }
           </p>
-
-          <p className='flex gap-1'>
-            Cast:
-            {
-              cast.slice(0,4).map((company,index)=>(
-                <p key={company.id}>{company.name},</p>
-              ))
-            }
-          </p>
         </div>
      
       </div>
     </div>
+    <div className='padding my-[5rem] relative'>
+  <h1 className='titles'>Cast</h1>
+  <div className='flex gap-4 overflow-x-scroll hide-scrollbar scroll-smooth' ref={scrollContainerRef}>
+    {cast.map((actor, index) => (
+      <div key={index} className='flex-shrink-0 h-auto'>
+        <div className='max-w-[13rem]'>
+          <img className='h-full w-full' src={actor.profile_path?`${baseUrl}${moviePosterSize}${actor.profile_path}`:Profile} alt="" />
+        </div>
+        <div>
+          <p key={actor.id}>{actor.name}</p>
+          <p>{actor.character}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  {/* Left Scroll Button */}
+  <button
+    className='absolute top-0 left-0 h-full px-2 bg-black bg-opacity-50 text-white'
+    onClick={() => scroll(-200)}
+  >
+    &lt;
+  </button>
+
+  {/* Right Scroll Button */}
+  <button
+    className='absolute top-0 right-0 h-full px-2 bg-black bg-opacity-50 text-white'
+    onClick={() => scroll(200)}
+  >
+    &gt;
+  </button>
+</div>
+
     <MovieTVSection title={"Recommendation"} type={"movie"} movies={recommendation}/>
     </div>
     
