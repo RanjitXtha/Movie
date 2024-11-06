@@ -33,6 +33,7 @@ const handleTVShowData = async(req,res)=>{
     const details = {
         castData , similarMovies
     }
+    //console.log('obtained')
     //console.log(castData);
     res.json(details);
 }catch(err){

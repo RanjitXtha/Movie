@@ -80,9 +80,9 @@ const fetchTvPage = async(req,res)=>{
   const response = await fetch(`https://api.themoviedb.org/3/tv/${tvId}?api_key=${API_KEY}`);
   const movieData = await response.json()
   const trailerResponse = await fetch(`https://api.themoviedb.org/3/tv/${tvId}/videos?api_key=${API_KEY}`)
- 
+  //console.log("movieTrailer:")
   const movieTrailer = await trailerResponse.json()
-  console.log(movieTrailer)
+  //console.log(movieTrailer)
   res.json({details:movieData , trailer:movieTrailer})
 }
 

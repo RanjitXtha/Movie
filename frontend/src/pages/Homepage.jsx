@@ -27,13 +27,13 @@ const Homepage = () => {
   } 
 
   const fetchLatestTvShows = async () => {
-      const response = await fetch(`http://localhost:5000/api/tv/on_the_air`);
+      const response = await fetch(`http://localhost:5000/api/tvshows/on_the_air`);
       const data = await response.json();
       setLatestTvShows(data.results.slice(0,12));
   }
 
   const fetchTopRatedTvShows = async () => {
-    const response = await fetch(`http://localhost:5000/api/tv/top_rated`);
+    const response = await fetch(`http://localhost:5000/api/tvshows/top_rated`);
     const data = await response.json();
     settopRatedTvShows(data.results.slice(0,12));
 }

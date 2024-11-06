@@ -12,7 +12,7 @@ const MovieTVsection = ({title , type, movies}) => {
         <h1 className='titles'>{title}</h1>
         <div className='flex flex-wrap gap-y-6 justify-between  '>
         { movies && movies.map((movie)=>(
-        <Link to={`/api/movies/movie/${movie.id}`}>
+        <Link to={type==='movie'?`/api/movies/movie/${movie.id}`:`/api/tvshows/tv/${movie.id}`}>
         <div key={movie.id} className='w-full'>
             <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
         </div>
