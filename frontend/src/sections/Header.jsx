@@ -57,11 +57,11 @@ const Header = () => {
           </nav>
             <nav className='relative group'>
               <Link to="/api/tvshows"> TV Shows</Link>  
-              <div className='hidden absolute p-4 text-md  group-hover:grid gap-4 bg-cyan-500  top-[1.7rem] left-0 z-[200]'>
-                <nav><Link to="/api/tv/airing_today">Airing Today</Link></nav>
-                <nav><Link to="/api/tv/on_the_air">On The Air</Link></nav>
-                <nav><Link to="/api/tv/popular">Popular</Link></nav>
-                <nav><Link to="/api/tv/top_rated">Top Rated</Link></nav>
+              <div className='hidden group-hover:block absolute p-4 text-md bg-cyan-500 w-[10rem]  top-[1.7rem] left-0 z-[200]'>
+                <nav><Link to="/api/tvshows/airing_today">Airing Today</Link></nav>
+                <nav><Link to="/api/tvshows/on_the_air">On The Air</Link></nav>
+                <nav><Link to="/api/tvshows/popular">Popular</Link></nav>
+                <nav><Link to="/api/tvshows/top_rated">Top Rated</Link></nav>
               </div>
             </nav>
         </div>

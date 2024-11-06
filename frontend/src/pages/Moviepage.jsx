@@ -30,6 +30,7 @@ const Moviepage = () => {
         const getMovie = async()=>{
             const response = await fetch(`http://localhost:5000/api/movies/movie/${movieId}`);
             const data = await response.json();
+            console.log(data)
             const findTrailer = data.trailer.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
             setMovie(data.details);
             setTrailer(findTrailer.key);
@@ -45,7 +46,7 @@ const Moviepage = () => {
         fetchMovieDetails();
        getMovie();
     },[movieId])
-    console.log(cast)
+ 
     if (!movie) return <div>Loading...</div>;
 
   return (

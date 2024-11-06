@@ -4,6 +4,7 @@ import SignIn from './pages/SignIn';
 import Moviepage from './pages/Moviepage';
 import Movies from './pages/movies';
 import Tvshows from './pages/Tvshows';
+import TvPage from './pages/TvPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomeRoute from './ProtectedRoutes/HomeRoute';
 function App() {
@@ -19,7 +20,8 @@ function App() {
           <Route path='/api/movies/:category' element={<Movies />} />
           <Route path='/api/movies/movie/:id' element={<Moviepage />} />
 
-          <Route path='/api/tv/:category' element={<Tvshows />} />
+          <Route path='/api/tvshows/:category' element={<Tvshows />} />
+          <Route path='/api/tvshows/tv/:tvId' element={<TvPage />} />
         </Routes>
       </Router>
     </div>
