@@ -7,30 +7,29 @@ import Header from '../sections/Header';
 const Tvshows = () => {
     const baseUrl = "https://image.tmdb.org/t/p/";
     const moviePosterSize = 'w185'
-    const [page, setPage] = useState(1);
     const [tvShows , setTvShows] = useState(null);
     const category = useParams();
-
-    useEffect(()=>{
-      setPage(1);
-    },[category])
+    const [pageCategory, setCategory] = useState('');
+    const [page, setPage] = useState(1);
+    const [totalPages,setTotalPages] = useState(null);
 
     useEffect(() => {
+      console.log(page)
       const fetchTvShows = async (url) => {
         const response = await fetch(url);
         const data = await response.json();
         setTvShows(data.results);
+        setTotalPages(data.total_pages)
       };
     
-      const Popular = () => fetchTvShows(`http://localhost:5000/api/tvshows/popular?page=1`);
-      const Latest = () => fetchTvShows(`http://localhost:5000/api/tvshows/latest?page=1`);
-      const OnTheAir = () => fetchTvShows(`http://localhost:5000/api/tvshows/on_the_air?page=1`);
-      const TopRated = () => fetchTvShows(`http://localhost:5000/api/tvshows/top_rated?page=1`);
-      const AiringToday = () => fetchTvShows(`http://localhost:5000/api/tvshows/airing_today?page=1`);
+      const Popular = () => fetchTvShows(`http://localhost:5000/api/tvshows/popular?page=${page}`);
+      const Latest = () => fetchTvShows(`http://localhost:5000/api/tvshows/latest?page=${page}`);
+      const OnTheAir = () => fetchTvShows(`http://localhost:5000/api/tvshows/on_the_air?page=${page}`);
+      const TopRated = () => fetchTvShows(`http://localhost:5000/api/tvshows/top_rated?page=${page}`);
+      const AiringToday = () => fetchTvShows(`http://localhost:5000/api/tvshows/airing_today?page=${page}`);
     
       switch (category.category) {
         case 'latest':
-          console.log("Hello");
           Latest();
           break;
         case 'popular':
@@ -48,13 +47,17 @@ const Tvshows = () => {
         default:
           return;
       }
-    }, [category,page]);
+    }, [category , page]);
    
+    useEffect(()=>{
+      setPage(1);
+    },[category])
+
   return (
     <div className='bg-black text-white'>
     <Header />
     <section className='pt-[5rem] padding'>
-    
+      <PageButtons setPage={setPage} totalPages={totalPages} currentPage={page} />
       <h1 className='titles'>{category.category} Movies</h1>
 
       <div className='flex flex-wrap gap-y-6 justify-between'>

@@ -5,7 +5,7 @@ import Header from '../sections/Header';
 import Ratingbar from '../Components/Ratingbar';
 import MovieTVSection from '../sections/MovieTVsection';
 import { useRef } from 'react';
-import Profile from '../assets/profile.jpg'
+import Profile from '../assets/profile.png'
 
 const Moviepage = () => {
   const [movie, setMovie] = useState(null);
@@ -17,7 +17,7 @@ const Moviepage = () => {
 
     const baseUrl = "https://image.tmdb.org/t/p/";
     const moviePosterSize = 'w342';
-
+    const heroPosterSize = 'original'
     const scrollContainerRef = useRef(null);
 
     const scroll = (scrollOffset) => {
@@ -37,8 +37,7 @@ const Moviepage = () => {
         }
 
         const fetchMovieDetails = async () => {
-           const response = await fetch(`http://localhost:5000/api/movies/info/${movieId}`);
-       
+          const response = await fetch(`http://localhost:5000/api/movies/info/${movieId}`);
           const data = await response.json();
           setCast(data.castData.cast);
           setRecommendation(data.similarMovies.results.slice(0,12));
@@ -53,14 +52,17 @@ const Moviepage = () => {
     <div className=' bg-black text-white'>
        <Header />
     <div  className='padding' >
-      { movie &&
+      { trailer ?
           <iframe
               className='w-full h-[40rem] pt-[4rem]'
                   src={`https://www.youtube.com/embed/${trailer}`} // Replace watch?v= with embed/
                   title="Movie Trailer"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-          ></iframe>
+          ></iframe>:
+          <div className='w-full h-[40rem] pt-[4rem]'>
+            <img src={`${baseUrl}${heroPosterSize}${movie.backdrop_path}`} alt={movie.id} />
+          </div>
       }
 
       <div className='flex gap-6 mt-[3rem]'>

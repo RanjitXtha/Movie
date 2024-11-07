@@ -1,7 +1,7 @@
 import React, { useEffect , useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
-import Profile from '../assets/profile.jpg';
+import Profile from '../assets/profile.png';
 import MovieTVSection from '../sections/MovieTVsection';
 import Header from '../sections/Header';
 import Ratingbar from '../Components/Ratingbar';
@@ -14,7 +14,7 @@ const TvPage = () => {
     const [recommendation , setRecommendation]= useState(null);
     const baseUrl = "https://image.tmdb.org/t/p/";
     const moviePosterSize = 'w342';
-
+    const heroPosterSize = 'original'
     const scrollContainerRef = useRef(null);
 
     const scroll = (scrollOffset) => {
@@ -28,44 +28,51 @@ const TvPage = () => {
             const response = await fetch(`http://localhost:5000/api/tvshows/tv/${tvId}`);
 
             const data = await response.json();
-            console.log('data');
-            //console.log(data)
+            console.log(data)
             const findTrailer =  data.trailer.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
-            
-         
-            console.log(findTrailer);
-            //console.log(data.details)
+            if(findTrailer){
+              setTrailer(findTrailer.key);
+            }else{
+              const findTrailer =  data.trailer.results.find(video => video.type === 'Teaser' && video.site === 'YouTube');;
+              findTrailer && setTrailer(findTrailer.key);
+             
+            }
             setTv(data.details);
-            setTrailer(findTrailer.key);
-            
         }
 
         const fetchTVShowDetails = async () => {
-            const response = await fetch(`http://localhost:5000/api/tvshows/info/${tvId}`);
-        
+          const response = await fetch(`http://localhost:5000/api/tvshows/info/${tvId}`);
            const data = await response.json();
-           //console.log(data)
-           setCast(data.castData.cast);
-           setRecommendation(data.similarMovies.results.slice(0,12));
+           let combinedCast = data.castData.cast;
+
+            if (combinedCast.length < 5) {
+                combinedCast = combinedCast.concat(data.castData.crew);
+            }
+          setCast(combinedCast)
+          setRecommendation(data.similarMovies.results.slice(0,12));
          }
         fetchTvShow();
         fetchTVShowDetails();
-    },[]);
+    },[tvId]);
     if (!tv) return <div>Loading...</div>;
     return (
         <div className='bg-black text-white'>
             <Header />
 
           <div className='padding'>
-            {tv &&
+            {trailer ?
               <iframe
                 className='w-full h-[40rem] pt-[4rem]'
                 src={`https://www.youtube.com/embed/${trailer}`} // Replace watch?v= with embed/
                 title="TV Show Trailer"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-              ></iframe>
+              ></iframe>:
+              <div className='w-full h-[40rem] pt-[4rem]'>
+                  <img src={`${baseUrl}${heroPosterSize}${tv.backdrop_path}`} alt={tv.id} />
+              </div>
             }
+            
       
             <div className='flex gap-6 mt-[3rem]'>
               <div className='w-[20rem] h-auto'>
