@@ -54,6 +54,18 @@ const handleTvShows =(req,res)=>{
         }
       };
 
+      const fetchTrendingTvShows = async (req, res) => {
+        const page = req.query.page || 1;
+        try {
+          const response = await fetch(`https://api.themoviedb.org/3/trending/tv/week?api_key=${API_KEY}&page=${page}`);
+          const data = await response.json(); 
+          res.json({ results: data.results ,total_pages:data.total_pages });
+        } catch (err) {
+          console.log('Error during fetching latest tv shows: ' + err);
+          res.status(500).json({ message: 'Error during fetching latest tv shows' });
+        }
+      };
+      
       switch(category){
         case 'on_the_air':{
             fetchLatestTvShows(req,res);
@@ -67,6 +79,9 @@ const handleTvShows =(req,res)=>{
           break;
         }case 'airing_today':{
           fetchTodayTvShows(req,res);
+          break;
+        }case 'trending':{
+          fetchTrendingTvShows(req,res);
           break;
         }
         default:{

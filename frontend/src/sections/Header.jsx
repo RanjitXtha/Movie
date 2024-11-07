@@ -1,10 +1,9 @@
 import React, { useEffect , useState } from 'react';
 import { Link } from 'react-router-dom';
-import { IoSearch } from "react-icons/io5";
+import Search from '../Components/Search'
 
 const Header = () => {
     const [movieGenres , setMovieGenres] = useState(null);
-    const [searchbar , setSearchBar]=  useState(false);
     const [tvShowGenres , setTvShowGenres] = useState(null);
 
     useEffect(()=>{
@@ -58,6 +57,7 @@ const Header = () => {
             <nav className='relative group'>
               <Link to="/api/tvshows"> TV Shows</Link>  
               <div className='hidden group-hover:block absolute p-4 text-md bg-cyan-500 w-[10rem]  top-[1.7rem] left-0 z-[200]'>
+                <nav><Link to="/api/tvshows/trending">Trending</Link></nav>
                 <nav><Link to="/api/tvshows/airing_today">Airing Today</Link></nav>
                 <nav><Link to="/api/tvshows/on_the_air">On The Air</Link></nav>
                 <nav><Link to="/api/tvshows/popular">Popular</Link></nav>
@@ -65,15 +65,9 @@ const Header = () => {
               </div>
             </nav>
         </div>
-
-        <div>
-          <span className='flex justify-end'>
-                  
-          <input type="text" placeholder='Search' className={`${!searchbar?'w-0':'w-full'} 
-            placeholder-white px-2 focus:outline-none transition-all bg-transparent `} />
-            <button onClick={()=>setSearchBar(!searchbar)} className='text-xl'><IoSearch /></button>
-          </span>
-        </div>
+        
+        <Search />
+        
 
       </header>
   )

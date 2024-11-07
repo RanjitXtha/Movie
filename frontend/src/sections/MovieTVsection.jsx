@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Circle from './circle';
 
 const MovieTVsection = ({title , type, movies}) => {
   const baseUrl = "https://image.tmdb.org/t/p/";

@@ -23,6 +23,7 @@ const Tvshows = () => {
       };
     
       const Popular = () => fetchTvShows(`http://localhost:5000/api/tvshows/popular?page=${page}`);
+      const Trending = () => fetchTvShows(`http://localhost:5000/api/tvshows/trending?page=${page}`);
       const Latest = () => fetchTvShows(`http://localhost:5000/api/tvshows/latest?page=${page}`);
       const OnTheAir = () => fetchTvShows(`http://localhost:5000/api/tvshows/on_the_air?page=${page}`);
       const TopRated = () => fetchTvShows(`http://localhost:5000/api/tvshows/top_rated?page=${page}`);
@@ -43,6 +44,9 @@ const Tvshows = () => {
           break;
         case 'airing_today':
           AiringToday();
+          break;
+        case 'trending':
+          Trending();
           break;
         default:
           return;
