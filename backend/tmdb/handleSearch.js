@@ -1,21 +1,27 @@
-const handleSearch = async(req,res)=>{
-    const searchQuery = req.query.searchQuery;
-    try{
-    const movieResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=YOUR_API_KEY&query=${searchQuery}`);
-    const movieData = await movieResponse.json();
+const API_KEY = '67a6d5b313d0a1cfd9da9f9bd0e4e475';
 
-    const tvResponse = await fetch(
-        `https://api.themoviedb.org/3/search/tv?api_key=YOUR_API_KEY&query=${searchQuery}`
+const handleSearch = async (req, res) => {
+    const searchQuery = req.query.query?.trim() || '';
+  
+    try {
+      const encodedQuery = encodeURIComponent(searchQuery);
+  
+      const movieResponse = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodedQuery}`
+      );
+      const movieData = await movieResponse.json();
+  
+      const tvResponse = await fetch(
+        `https://api.themoviedb.org/3/search/tv?api_key=${API_KEY}&query=${encodedQuery}`
       );
       const tvData = await tvResponse.json();
-
-      const searchResult = movieData.results.concat(tvData.results);
-      res.send({searchResult});
-    }catch(err){
-        console.log(err);
-        res.status(500).json({ message: 'Error fetching search results' });
+  
+      const searchResult = { movieData, tvData };
+      res.send({ searchResult });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Error fetching search results' });
     }
-
-}
-
-module.exports = {handleSearch};
+  };
+  
+  module.exports = { handleSearch };

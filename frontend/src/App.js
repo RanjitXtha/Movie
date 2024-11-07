@@ -5,6 +5,7 @@ import Moviepage from './pages/Moviepage';
 import Movies from './pages/movies';
 import Tvshows from './pages/Tvshows';
 import TvPage from './pages/TvPage';
+import SearchPage from './pages/SearchPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomeRoute from './ProtectedRoutes/HomeRoute';
 function App() {
@@ -22,6 +23,7 @@ function App() {
 
           <Route path='/api/tvshows/:category' element={<Tvshows />} />
           <Route path='/api/tvshows/tv/:tvId' element={<TvPage />} />
+          <Route path='/api/search' element={<SearchPage />} />
         </Routes>
       </Router>
     </div>
