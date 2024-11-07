@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PageButtons from '../Components/PageButtons';
 import Header from '../sections/Header';
 
+
 const Tvshows = () => {
     const baseUrl = "https://image.tmdb.org/t/p/";
     const moviePosterSize = 'w185'

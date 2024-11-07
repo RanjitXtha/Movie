@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../sections/Header';
 import { Link } from 'react-router-dom';
+import moviepic from '../assets/moviepic.png';
 
 const SearchPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const searchQuery = searchParams.get('query');
 
-  const [movies, setMovies] = useState([]);
-  const [tvShows, setTvShows] = useState([]);
+  const [movies, setMovies] = useState(null);
+  const [tvShows, setTvShows] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -35,19 +36,19 @@ const SearchPage = () => {
   }, [searchQuery]);
 
   return (
-    <div className='bg-black'>
+    <div className='bg-black text-white'>
       <Header />
       <section className='pt-[5rem] padding'>
         <h1 className='titles'>Search Results for "{searchQuery}"</h1>
         {loading && <p>Loading...</p>}
         {error && <p className="text-red-500">{error}</p>}
-
+        <h2 className="titles">Movies</h2>
         <div className='flex flex-wrap gap-y-6 justify-between'>
-          <h2 className="text-white">Movies</h2>
+        
           {movies && movies.map((movie) => (
             <Link key={movie.id} to={`/api/movies/movie/${movie.id}`}>
               <div className='w-full'>
-                <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
+                <img src={movie.poster_path?`${baseUrl}${moviePosterSize}${movie.poster_path}`:moviepic} alt={movie.title} />
               </div>
               <div>
                 <p className="font-bold w-[185px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
@@ -61,13 +62,13 @@ const SearchPage = () => {
             </Link>
           ))}
         </div>
-
+        <h2 className=" titles">TV Shows</h2>
         <div className='flex flex-wrap gap-y-6 justify-between mt-8'>
-          <h2 className="text-white">TV Shows</h2>
+          
           {tvShows && tvShows.map((tv) => (
             <Link key={tv.id} to={`/api/tvshows/tv/${tv.id}`}>
               <div className='w-full'>
-                <img src={`${baseUrl}${moviePosterSize}${tv.poster_path}`} alt={tv.name} />
+                <img src={tv.poster_path?`${baseUrl}${moviePosterSize}${tv.poster_path}`:moviepic} alt={tv.name} />
               </div>
               <div>
                 <p className="font-bold w-[185px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
