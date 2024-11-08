@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const MovieTVsection = ({title , type, movies}) => {
   const baseUrl = "https://image.tmdb.org/t/p/";
   const heroPosterSize = "w1280";
-  const moviePosterSize = 'w185'
+  const moviePosterSize = 'w342'
 
   return (
     <section className='text-white max-container padding mb-[5rem]'>

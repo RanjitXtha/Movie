@@ -44,6 +44,7 @@ const Homepage = () => {
   fetchTopRatedTvShows();
 },[])
 
+if(!trendingMovies) return <div className='bg-black   text-white h-screen w-screen'>Loading...</div>;
 
   return (
     <div className='bg-black'>

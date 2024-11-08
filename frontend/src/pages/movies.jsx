@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -16,7 +17,7 @@ const Movies = () => {
 
   const [movies, setMovies] = useState(null);
   const baseUrl = "https://image.tmdb.org/t/p/";
-  const moviePosterSize = 'w185';
+  const moviePosterSize = 'w342';
 
   const fetchMovies = async (url) => {
     const response = await fetch(url);
@@ -37,7 +38,7 @@ const Movies = () => {
   };
 
   useEffect(() => {
-    setPage(1); // Reset page to 1 when category or genreType changes
+    setPage(1);
   }, [category, genreType]);
 
   useEffect(() => {
@@ -61,6 +62,8 @@ const Movies = () => {
         break;
     }
   }, [category, page, genreType]);
+
+  if(!movies) return <div className='bg-black h-screen w-screen  text-white'>Loading...</div>;
 
   return (
     <div className='bg-black text-white'>

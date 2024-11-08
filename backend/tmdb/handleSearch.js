@@ -1,4 +1,7 @@
-const API_KEY = '67a6d5b313d0a1cfd9da9f9bd0e4e475';
+require('dotenv').config();
+const API_KEY = process.env.API_KEY;
+//const fetch = require('node-fetch');
+
 
 const handleSearch = async (req, res) => {
     const searchQuery = req.query.query?.trim() || '';

@@ -1,5 +1,7 @@
-const API_KEY = '67a6d5b313d0a1cfd9da9f9bd0e4e475';
-const BASE_URL = 'https://api.themoviedb.org/3';
+require('dotenv').config();
+const API_KEY = process.env.API_KEY;
+console.log(API_KEY);
+//const fetch = require('node-fetch');
 
 const handleMovies = (req,res)=>{
   const category = req.params.category;
@@ -7,7 +9,7 @@ const handleMovies = (req,res)=>{
   const fetchPopularMovies = async(req,res) =>{
     const page = req.query.page || 1;
       try {
-        const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&page=${page}`);
+        const response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&page=${page}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

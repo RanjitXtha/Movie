@@ -1,3 +1,5 @@
+require('dotenv').config();
+console.log(process.env.API_KEY)
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -12,7 +14,6 @@ const {handleTvShows, fetchTvPage} = require('./tmdb/getTvShows');
 const {handleMovieData, handleTVShowData} = require('./tmdb/getMovieDetails');
 
 const {handleSearch} = require('./tmdb/handleSearch');
-
 
 const dbURL = "mongodb+srv://alienshooternp:herecomesthepain12@nodetesting.ljo8jbk.mongodb.net/moviedb?retryWrites=true&w=majority";
 const cors = require('cors');

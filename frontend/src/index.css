@@ -19,7 +19,7 @@ img{
     }
 
     .padding{
-        @apply px-[4rem]
+        @apply md:px-[4rem] px-[2rem]
     }
     
     .pagebutton{

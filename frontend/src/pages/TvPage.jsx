@@ -54,7 +54,8 @@ const TvPage = () => {
         fetchTvShow();
         fetchTVShowDetails();
     },[tvId]);
-    if (!tv) return <div>Loading...</div>;
+    if (!tv) return <div className='bg-black h-screen w-screen text-white' >Loading...</div>;
+
     return (
         <div className='bg-black text-white'>
             <Header />
@@ -74,8 +75,8 @@ const TvPage = () => {
             }
             
       
-            <div className='flex gap-6 mt-[3rem]'>
-              <div className='w-[20rem] h-auto'>
+            <div className='flex flex-col items-center lg:flex-row  gap-6 mt-[3rem]'>
+              <div className='max-w-[15rem] lg:w-[20rem]  h-auto'>
                 <img className='object-contain' src={`${baseUrl}${moviePosterSize}${tv.poster_path}`} alt={tv.title} />
               </div>
       
@@ -107,13 +108,13 @@ const TvPage = () => {
             <h1 className='titles'>Cast</h1>
             <div className='flex gap-4 overflow-x-scroll hide-scrollbar scroll-smooth' ref={scrollContainerRef}>
               {cast && cast.map((actor, index) => (
-                <div key={index} className='flex-shrink-0 h-auto'>
+                <div key={index} className='flex-shrink-0 '>
                   <div className='max-w-[13rem]'>
                     <img className='h-full w-full' src={actor.profile_path ? `${baseUrl}${moviePosterSize}${actor.profile_path}` : Profile} alt="" />
                   </div>
                   <div>
                     <p>{actor.name}</p>
-                    <p>{actor.character}</p>
+                    <p className='w-[200px] text-wrap'>{actor.character}</p>
                   </div>
                 </div>
               ))}

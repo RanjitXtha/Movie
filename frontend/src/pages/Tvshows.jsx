@@ -7,7 +7,7 @@ import Header from '../sections/Header';
 
 const Tvshows = () => {
     const baseUrl = "https://image.tmdb.org/t/p/";
-    const moviePosterSize = 'w185'
+    const moviePosterSize = 'w342'
     const [tvShows , setTvShows] = useState(null);
     const category = useParams();
     const [pageCategory, setCategory] = useState('');
@@ -56,7 +56,9 @@ const Tvshows = () => {
    
     useEffect(()=>{
       setPage(1);
-    },[category])
+    },[category]);
+
+    if(!tvShows) return <div className='bg-black h-screen w-screen text-white'>Loading...</div>;
 
   return (
     <div className='bg-black text-white'>

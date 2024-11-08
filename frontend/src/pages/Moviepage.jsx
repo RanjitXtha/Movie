@@ -46,11 +46,12 @@ const Moviepage = () => {
        getMovie();
     },[movieId])
  
-    if (!movie) return <div>Loading...</div>;
+    if(!movie) return <div className='bg-black h-screen w-screen  text-white'>Loading...</div>;
 
   return (
     <div className='bg-black text-white'>
        <Header />
+  
     <div className='padding max-container' >
       { trailer ?
           <iframe
@@ -65,8 +66,8 @@ const Moviepage = () => {
           </div>
       }
 
-      <div className='flex gap-6 mt-[3rem]'>
-        <div className='w-[20rem] h-auto'>
+      <div className='flex flex-col items-center lg:flex-row gap-6 mt-[3rem]'>
+        <div className='max-w-[15rem] lg:w-[20rem] h-auto'>
           <img className='object-contain' src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
         </div>
 
@@ -81,17 +82,19 @@ const Moviepage = () => {
             Rating: {movie.vote_average.toFixed(1)} <Ratingbar score={movie.vote_average.toFixed(1)} />
           </div>
           <p>{movie.overview}</p>
-          <p>Release Date: {movie.release_date}</p>
-          <p>Duration: {movie.runtime} min</p>
-          <p className='flex gap-2'>Country: {movie.origin_country.map((country,index)=><p key={index}>{country}</p>)}</p>
-          <p className='flex gap-1'>
-            Production:
-            {
-              movie.production_companies.map((company,index)=>(
-                <p key={company.id}>{company.name},</p>
-              ))
-            }
-          </p>
+          <div>
+            <p>Release Date: {movie.release_date}</p>
+            <p>Duration: {movie.runtime} min</p>
+            <p className='flex gap-2'>Country: {movie.origin_country.map((country,index)=><p key={index}>{country}</p>)}</p>
+            <p className='flex gap-1 flex-wrap'>
+              Production:
+              {
+                movie.production_companies.map((company,index)=>(
+                  <p key={company.id}>{company.name},</p>
+                ))
+              }
+            </p>
+          </div>
         </div>
      
       </div>
@@ -104,9 +107,9 @@ const Moviepage = () => {
         <div className='max-w-[13rem]'>
           <img className='h-full w-full' src={actor.profile_path?`${baseUrl}${moviePosterSize}${actor.profile_path}`:Profile} alt="" />
         </div>
-        <div>
+        <div >
           <p key={actor.id}>{actor.name}</p>
-          <p>{actor.character}</p>
+          <p className='w-[200px] text-wrap'>{actor.character}</p>
         </div>
       </div>
     ))}

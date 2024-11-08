@@ -1,5 +1,7 @@
-const API_KEY = '67a6d5b313d0a1cfd9da9f9bd0e4e475';
-const BASE_URL = 'https://api.themoviedb.org/3';
+require('dotenv').config();
+const API_KEY = process.env.API_KEY;
+//const fetch = require('node-fetch');
+
 
 const fetchMovieGenres = async(req,res)=>{
     const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`);
