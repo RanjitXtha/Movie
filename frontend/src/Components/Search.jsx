@@ -20,7 +20,7 @@ const Search = () => {
 
   return (
     <div>
-        <span className='flex justify-end'>
+        <span className='flex justify-end relative'>
                   
         <input type="text" placeholder='Search' className={`${!searchbar?'w-0':'w-full'} 
             placeholder-white px-2 focus:outline-none transition-all bg-transparent  `} 

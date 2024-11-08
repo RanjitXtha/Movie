@@ -1,10 +1,15 @@
-import React, { useEffect , useState } from 'react';
+import React, { useEffect , useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Search from '../Components/Search'
+import Search from '../Components/Search';
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Header = () => {
     const [movieGenres , setMovieGenres] = useState(null);
     const [tvShowGenres , setTvShowGenres] = useState(null);
+
+    const menuRef = useRef();
+
+    const [menu , setMenu] = useState(false);
 
     useEffect(()=>{
         const fetchMovieGenres = async () => {
@@ -27,7 +32,48 @@ const Header = () => {
   
   
   return (
-    <header className=' w-full h-12 fixed z-50 padding py-[1rem] flex flex-row md:grid md:grid-cols-[15%_1fr_21%] gap-6 justify-between md:justify-center text-white font-medium '>
+    <header className='w-full h-12  max-container fixed left-0 right-0 padding z-50 py-[1rem] flex flex-row md:grid md:grid-cols-[15%_1fr_21%] gap-6 justify-between md:justify-center text-white font-medium '>
+      <button onClick={()=>setMenu(!menu)} className='block md:hidden text-xl relative'><GiHamburgerMenu />
+      </button>
+
+     
+
+      <div ref={menuRef} className={`overflow-y-scroll hide-scrollbar ${menu?'w-[17rem]':'w-0 hidden'} bg-black p-4 gap-3 flex flex-col left-0 top-0 h-screen absolute`}>
+        <nav><button onClick={()=>setMenu(!menu)}>Close Menu</button></nav>
+        <nav className='border-b-[1px] pb-2 border-gray-600'><Link to="/">Home</Link></nav>
+        
+        <nav className='group border-b-[1px] pb-2 border-gray-600'>
+            <Link>Genre</Link>
+            <div className='mt-2 hidden text-sm  group-hover:grid grid-cols-2 gap-x-6 gap-y-2  transition duration-500 ease-in-out '>
+              {
+                movieGenres && movieGenres.map((genre)=>(
+                  <Link to={`/api/movies/genre?genreType=${genre.id}&page=1`}>
+                    <p>{genre.name}</p>
+                  </Link>
+                ))
+              }
+            </div>
+          </nav>
+          <nav className='group border-b-[1px] pb-2 border-gray-600'>
+            <Link to="">Movies</Link>
+            <div className='hidden text-sm mt-2 group-hover:grid gap-2'>
+              <nav><Link to="/api/movies/latest">Latest</Link></nav>
+              <nav><Link to="/api/movies/popular">Popular</Link></nav>
+              <nav><Link to="">Upcoming</Link></nav>
+            </div>
+          </nav>
+            <nav className='group border-b-[1px] pb-2 border-gray-600'>
+              <Link to=""> TV Shows</Link>  
+              <div className='hidden text-sm mt-2 group-hover:grid gap-2'>
+                <nav><Link to="/api/tvshows/trending">Trending</Link></nav>
+                <nav><Link to="/api/tvshows/airing_today">Airing Today</Link></nav>
+                <nav><Link to="/api/tvshows/on_the_air">On The Air</Link></nav>
+                <nav><Link to="/api/tvshows/popular">Popular</Link></nav>
+                <nav><Link to="/api/tvshows/top_rated">Top Rated</Link></nav>
+              </div>
+            </nav>
+      </div>
+
         <div className='w-14'>NEPFLIX</div>
 
         <div className='header-navs hidden md:flex justify-center gap-10 '>
@@ -67,7 +113,8 @@ const Header = () => {
         </div>
         
         <Search />
-        
+
+     
 
       </header>
   )

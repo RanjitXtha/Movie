@@ -60,10 +60,10 @@ const TvPage = () => {
         <div className='bg-black text-white'>
             <Header />
 
-          <div className='padding'>
+          <div className='padding max-container'>
             {trailer ?
               <iframe
-                className='w-full h-[40rem] pt-[4rem]'
+                className='w-full  pt-[4rem] h-[50vw] min-h-[30rem] max-h-[40rem] 2xl:max-h-[50rem]'
                 src={`https://www.youtube.com/embed/${trailer}`} // Replace watch?v= with embed/
                 title="TV Show Trailer"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -76,7 +76,7 @@ const TvPage = () => {
             
       
             <div className='flex flex-col items-center lg:flex-row  gap-6 mt-[3rem]'>
-              <div className='max-w-[15rem] lg:w-[20rem]  h-auto'>
+              <div className='w-[10rem] md:w-[15rem] lg:w-[20rem] h-auto'>
                 <img className='object-contain' src={`${baseUrl}${moviePosterSize}${tv.poster_path}`} alt={tv.title} />
               </div>
       
@@ -94,7 +94,7 @@ const TvPage = () => {
                 <p>Release Date: {tv.release_date}</p>
                 <p>Duration: {tv.runtime} min</p>
                 <p className='flex gap-2'>Country: {tv.origin_country.map((country, index) => <p key={index}>{country}</p>)}</p>
-                <p className='flex gap-1'>
+                <p className='flex gap-1 flex-wrap'>
                   Production:
                   {tv.production_companies.map((company) => (
                     <p key={company.id}>{company.name},</p>
@@ -104,19 +104,19 @@ const TvPage = () => {
             </div>
           </div>
       
-          <div className='padding my-[5rem] relative'>
+          <div className='padding my-[5rem] relative max-container'>
             <h1 className='titles'>Cast</h1>
             <div className='flex gap-4 overflow-x-scroll hide-scrollbar scroll-smooth' ref={scrollContainerRef}>
               {cast && cast.map((actor, index) => (
                 <div key={index} className='flex-shrink-0 '>
-                  <div className='max-w-[13rem]'>
-                    <img className='h-full w-full' src={actor.profile_path ? `${baseUrl}${moviePosterSize}${actor.profile_path}` : Profile} alt="" />
+                  <div className='w-[11rem] md:w-[13rem]'>
+                    <img className='h-full ' src={actor.profile_path ? `${baseUrl}${moviePosterSize}${actor.profile_path}` : Profile} alt="" />
                   </div>
-                  <div>
-                    <p>{actor.name}</p>
-                    <p className='w-[200px] text-wrap'>{actor.character}</p>
+                      <div >
+                        <p key={actor.id}>{actor.name}</p>
+                        <p className='w-[200px] text-wrap'>{actor.character}</p>
+                      </div>
                   </div>
-                </div>
               ))}
             </div>
     
