@@ -49,12 +49,12 @@ const Moviepage = () => {
     if (!movie) return <div>Loading...</div>;
 
   return (
-    <div className=' bg-black text-white'>
+    <div className='bg-black text-white'>
        <Header />
-    <div  className='padding' >
+    <div className='padding max-container' >
       { trailer ?
           <iframe
-              className='w-full h-[40rem] pt-[4rem]'
+              className='w-full  pt-[4rem] h-[50vw] min-h-[30rem] max-h-[40rem] 2xl:max-h-[50rem]'
                   src={`https://www.youtube.com/embed/${trailer}`} // Replace watch?v= with embed/
                   title="Movie Trailer"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -96,9 +96,9 @@ const Moviepage = () => {
      
       </div>
     </div>
-    <div className='padding my-[5rem] relative'>
+    <div className='padding my-[5rem] relative max-container'>
   <h1 className='titles'>Cast</h1>
-  <div className='flex gap-4 overflow-x-scroll hide-scrollbar scroll-smooth' ref={scrollContainerRef}>
+  <div className=' flex gap-4 overflow-x-scroll hide-scrollbar scroll-smooth' ref={scrollContainerRef}>
     {cast.map((actor, index) => (
       <div key={index} className='flex-shrink-0 h-auto'>
         <div className='max-w-[13rem]'>

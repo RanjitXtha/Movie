@@ -65,10 +65,10 @@ const Movies = () => {
   return (
     <div className='bg-black text-white'>
       <Header />
-      <section className='pt-[5rem] padding'>
+      <section className='pt-[5rem] padding max-container'>
         <PageButtons setPage={setPage} totalPages={totalPages} currentPage={page} />
         <h1 className='titles'>{pageCategory} Movies</h1>
-        <div className='flex flex-wrap gap-y-6 justify-between'>
+        <div className='grid grid-cols-2  md:grid-cols-4 xl:grid-cols-5 gap-y-6 gap-x-3 justify-between'>
           {movies && movies.map((movie) => (
             <Link key={movie.id} to={`/api/movies/movie/${movie.id}`}>
               <div className='w-full'>

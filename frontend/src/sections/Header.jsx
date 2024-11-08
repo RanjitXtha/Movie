@@ -27,14 +27,14 @@ const Header = () => {
   
   
   return (
-    <header className='w-full h-12 fixed z-50 padding py-[1rem] grid grid-cols-[15%_1fr_21%] gap-6 items-center text-white font-medium '>
+    <header className=' w-full h-12 fixed z-50 padding py-[1rem] flex flex-row md:grid md:grid-cols-[15%_1fr_21%] gap-6 justify-between md:justify-center text-white font-medium '>
         <div className='w-14'>NEPFLIX</div>
 
-        <div className='header-navs flex justify-center gap-10 '>
+        <div className='header-navs hidden md:flex justify-center gap-10 '>
           <nav><Link to="/">Home</Link></nav>
 
           <nav className='relative group'>
-            <Link to="">Genre</Link>
+            <Link >Genre</Link>
             <div className='hidden absolute p-4 text-md  group-hover:grid grid-cols-[repeat(3,9rem)] gap-4 bg-cyan-500  top-[1.7rem] left-0 z-[200] transition duration-500 ease-in-out '>
               {
                 movieGenres && movieGenres.map((genre)=>(
@@ -55,7 +55,7 @@ const Header = () => {
             </div>
           </nav>
             <nav className='relative group'>
-              <Link to="/api/tvshows"> TV Shows</Link>  
+              <Link to=""> TV Shows</Link>  
               <div className='hidden group-hover:block absolute p-4 text-md bg-cyan-500 w-[10rem]  top-[1.7rem] left-0 z-[200]'>
                 <nav><Link to="/api/tvshows/trending">Trending</Link></nav>
                 <nav><Link to="/api/tvshows/airing_today">Airing Today</Link></nav>

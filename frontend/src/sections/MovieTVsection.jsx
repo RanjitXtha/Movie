@@ -7,9 +7,9 @@ const MovieTVsection = ({title , type, movies}) => {
   const moviePosterSize = 'w185'
 
   return (
-    <section className='text-white padding mb-[5rem]'>
+    <section className='text-white max-container padding mb-[5rem]'>
         <h1 className='titles'>{title}</h1>
-        <div className='flex flex-wrap gap-y-6 justify-between  '>
+        <div className='grid grid-cols-2  md:grid-cols-4 xl:grid-cols-6 gap-y-6 gap-x-3 justify-between  '>
         { movies && movies.map((movie)=>(
         <Link to={type === 'movie'?`/api/movies/movie/${movie.id}`:`/api/tvshows/tv/${movie.id}`}>
         <div key={movie.id} className='w-full'>

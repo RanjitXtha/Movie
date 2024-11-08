@@ -24,13 +24,13 @@ const Hero = () => {
 
   return (
 
-    <div>
+    <div className='max-container'>
           
     {
       hero &&
-      <section className='mb-[5rem] relative py-[3rem] flex items-end w-full h-[calc(100vh-3rem)]'>
+      <section className='mb-[5rem] relative py-[3rem] flex w-full items-end h-[50vw] min-h-[30rem] max-h-[40rem] 2xl:max-h-[50rem]'>
         <div className='padding flex gap-5 w-full'>
-          <div className='w-[13rem] h-[18rem] z-20'>
+          <div className='min-w-[8rem] min-h-[13rem] w-[8rem] h-[13rem] md:w-[10rem] md:h-[15rem] lg:w-[13rem] lg:h-[18rem] z-20'>
               <img className='object-fill' src={`${baseUrl}${moviePosterSize}${hero[activeIndex].poster_path}`} alt={hero[activeIndex].title} />
           </div>
 

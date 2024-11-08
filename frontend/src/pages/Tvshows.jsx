@@ -65,7 +65,7 @@ const Tvshows = () => {
       <PageButtons setPage={setPage} totalPages={totalPages} currentPage={page} />
       <h1 className='titles'>{category.category} Movies</h1>
 
-      <div className='flex flex-wrap gap-y-6 justify-between'>
+      <div className='grid grid-cols-2  md:grid-cols-4 xl:grid-cols-5 gap-y-6 gap-x-3 justify-between'>
         {tvShows && tvShows.map((tv) => (
           <Link key={tv.id} to={`/api/tvshows/tv/${tv.id}`}>
             <div className='w-full'>

@@ -25,6 +25,10 @@ img{
     .pagebutton{
         @apply w-8 h-8 flex justify-center items-center rounded-full ring-2
     }
+
+    .max-container{
+        @apply max-w-[1440px] mx-auto w-full
+    }
     
 }
 
