@@ -1,10 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 import PageButtons from '../Components/PageButtons';
 import Header from '../sections/Header';
+import MovieTvCards from '../Components/MovieTvCards';
 
 const Movies = () => {
   const [pageCategory, setCategory] = useState('');
@@ -73,20 +74,7 @@ const Movies = () => {
         <h1 className='titles'>{pageCategory} Movies</h1>
         <div className='grid grid-cols-2  md:grid-cols-4 xl:grid-cols-5 gap-y-6 gap-x-3 justify-between'>
           {movies && movies.map((movie) => (
-            <Link key={movie.id} to={`/api/movies/movie/${movie.id}`}>
-              <div className='w-full'>
-                <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
-              </div>
-              <div>
-                <p className="font-bold w-[185px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
-                  {movie.title}
-                </p>
-                <span className='text-sm flex gap-4'>
-                  <p>{movie.release_date?.substring(0,4)}</p>
-                  <p>Rating: {movie.vote_average?.toFixed(1)}</p>
-                </span>
-              </div>
-            </Link>
+            <MovieTvCards movie={movie} type={"movie"} />
           ))}
         </div>
       </section>

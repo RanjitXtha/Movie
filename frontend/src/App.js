@@ -9,13 +9,12 @@ import SearchPage from './pages/SearchPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomeRoute from './ProtectedRoutes/HomeRoute';
 function App() {
-  const token = localStorage.getItem('token');
-  console.log(token.username);
+
   return (
     <div>
       <Router> 
         <Routes>
-          <Route index element={<Home />} />
+          <Route index path="/" element={<Home />} />
           <Route path='/home' element={<Home />} />
           <Route path='/login' element={<HomeRoute><Login /></HomeRoute>} />
           <Route path='/signup' element={<HomeRoute><SignIn /></HomeRoute>} />

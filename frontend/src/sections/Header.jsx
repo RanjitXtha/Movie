@@ -3,18 +3,19 @@ import { Link } from 'react-router-dom';
 import Search from '../Components/Search';
 import Profile from '../Components/Profile';
 import { GiHamburgerMenu } from "react-icons/gi";
+import { jwtDecode } from 'jwt-decode';
 
 const Header = () => {
     const [movieGenres , setMovieGenres] = useState(null);
     const [tvShowGenres , setTvShowGenres] = useState(null);
     const [menu , setMenu] = useState(false);
+    const [username , setUsername] = useState('');
     const menuRef = useRef();
 
     const handleVisibility = (e)=>{
       if(menuRef.current && !menuRef.current.contains(e.target)){
         setMenu(false);
       }
-
     }
 
     useEffect(()=>{
@@ -22,11 +23,18 @@ const Header = () => {
       return ()=>{
         document.removeEventListener("mousedown",handleVisibility);
       }
-    },[])
-
+    },[]);
     
 
     useEffect(()=>{
+      const token = localStorage.getItem('token');
+      if (token) {
+          const decodedToken = jwtDecode(token);
+        
+          const { username } = decodedToken;
+          setUsername(username);
+        }
+
         const fetchMovieGenres = async () => {
             const response = await fetch(`http://localhost:5000/api/genres/movies`);
             const data = await response.json();
@@ -129,7 +137,12 @@ const Header = () => {
         
         <div className='flex justify-end gap-6 '>
           <Search />
-          <Profile />
+          {
+            username?
+            <Profile username={username} />
+            :<a href='/login'>Login</a>
+          }
+          
         </div>
 
       </header>

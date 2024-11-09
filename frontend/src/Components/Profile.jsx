@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IoPersonCircleSharp } from "react-icons/io5";
-import {jwtDecode} from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
-const Profile = () => {
+const Profile = ({username}) => {
+    const navigate = useNavigate();
     const [profile , setProfile] = useState(false);
-    const [username , setUsername] = useState(false);
     const profileRef = useRef();
 
     const handleVisibility = (e)=>{
@@ -14,15 +14,11 @@ const Profile = () => {
 
     }
 
-    useEffect(()=>{
-        const token = localStorage.getItem('token');
-        if (token) {
-            const decodedToken = jwtDecode(token);
-          
-            const { username } = decodedToken;
-            setUsername(username);
-          }
-    },[])
+    const LogOut = ()=>{
+        console.log('logout')
+        localStorage.removeItem('token');
+        navigate('/');
+    }
 
     useEffect(()=>{
         document.addEventListener('mousedown',handleVisibility);
@@ -37,7 +33,7 @@ const Profile = () => {
             <div ref={profileRef} className={`text-base ${profile?'block':'hidden'} right-0 p-4 grid gap-4 top-[2rem] bg-cyan-500 min-w-[10rem] absolute`}>
                 <p>{username}</p>
                 <nav><button>History</button></nav>
-                <button>Logout</button>
+                <a href="/" onClick={LogOut}>Logout</a>
             </div>
         </button>
     </div>

@@ -5,7 +5,7 @@ const userSchema = require('../schema/userSchema');
 
 const SECRET_KEY= 'thisisasecretkey';
 
-const LogIn = async(req,res)=>{
+const SignIn = async(req,res)=>{
     try{
         const {username , email , password} = req.body;
        
@@ -23,7 +23,9 @@ const LogIn = async(req,res)=>{
 
         await newUser.save();
 
-        const token = jwt.sign({email , username },SECRET_KEY ,{expiresIn: '7d'} );
+        const userId = newUser._id;
+
+        const token = jwt.sign({userId , username },SECRET_KEY ,{expiresIn: '7d'} );
         return res.json({token});
     }catch(err){
         console.log('error in signup' + err);
@@ -31,7 +33,7 @@ const LogIn = async(req,res)=>{
 }
 
 
-const SignIn = async(req,res)=>{
+const LogIn = async(req,res)=>{
     try{
         const {email , password} = req.body;
         const user = await userSchema.findOne({email});
@@ -50,7 +52,9 @@ const SignIn = async(req,res)=>{
 
     console.log('Logged In');
 
-    const token = jwt.sign({email ,username },SECRET_KEY ,{expiresIn: '7d'} );
+    const userId = user._id;
+
+    const token = jwt.sign({userId ,username },SECRET_KEY ,{expiresIn: '7d'} );
     return res.json({token});
 }catch(err){
     console.log(err);

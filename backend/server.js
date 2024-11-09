@@ -1,5 +1,4 @@
 require('dotenv').config();
-console.log(process.env.API_KEY)
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -12,6 +11,9 @@ const {fetchMovieGenres , fetchTvShowsGenres} = require('./tmdb/getGenres');
 
 const {handleTvShows, fetchTvPage} = require('./tmdb/getTvShows');
 const {handleMovieData, handleTVShowData} = require('./tmdb/getMovieDetails');
+const {addHistory , addFavourite , addWatchLater , getHistory ,getFavourite , getWatchLater ,
+    deleteHistory , deleteFavourite ,deleteWatchLater
+    } = require('./userInfo/userInfo');
 
 const {handleSearch} = require('./tmdb/handleSearch');
 
@@ -43,8 +45,6 @@ app.get('/signup',(req,res)=>{
 })
 
 app.post('/signup',SignIn)
-
-
 app.post('/login',LogIn)
 
 app.get('/api/genres/movies',fetchMovieGenres);
@@ -60,4 +60,31 @@ app.get('/api/tvshows/info/:tvId',handleTVShowData);
 
 app.get('/api/search',handleSearch);
 
+
+app.post('/api/:userId/history',addHistory);
+app.post('/api/:userId/favourites',addFavourite);
+app.post('/api/:userId/watchlater',addWatchLater);
+
+app.get('/api/:userId/history', );
+
+  app.delete('/api/:userId/history/:movieId', async (req, res) => {
+    const { userId, movieId } = req.params;
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Filter out the movie with the specified movieId
+      user.recentHistory = user.recentHistory.filter(
+        (item) => item.movieId !== movieId
+      );
+  
+      await user.save();
+      res.json({ message: 'Movie removed from history', recentHistory: user.recentHistory });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error removing movie from history' });
+    }
+  });
 

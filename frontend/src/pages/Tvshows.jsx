@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import PageButtons from '../Components/PageButtons';
 import Header from '../sections/Header';
+import MovieTvCards from '../Components/MovieTvCards';
 
 
 const Tvshows = () => {
@@ -69,20 +69,7 @@ const Tvshows = () => {
 
       <div className='grid grid-cols-2  md:grid-cols-4 xl:grid-cols-5 gap-y-6 gap-x-3 justify-between'>
         {tvShows && tvShows.map((tv) => (
-          <Link key={tv.id} to={`/api/tvshows/tv/${tv.id}`}>
-            <div className='w-full'>
-              <img src={`${baseUrl}${moviePosterSize}${tv.poster_path}`} alt={tv.title} />
-            </div>
-            <div>
-              <p className="font-bold w-[185px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
-                {tv.name}
-              </p>
-              <span className='text-sm flex gap-4'>
-                <p>{tv.first_air_date?.substring(0,4)}</p>
-                <p>Rating: {tv.vote_average?.toFixed(1)}</p>
-              </span>
-            </div>
-          </Link>
+          <MovieTvCards movie={tv} type={"tv"} />
         ))}
       </div>
     </section>
