@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import Search from '../Components/Search';
 import Profile from '../Components/Profile';
 import { GiHamburgerMenu } from "react-icons/gi";
-import { jwtDecode } from 'jwt-decode';
+import { UserAuthContext } from '../Context/userAuth';
+import { useContext } from 'react';
 
 const Header = () => {
+    const {username} = useContext(UserAuthContext);
     const [movieGenres , setMovieGenres] = useState(null);
     const [tvShowGenres , setTvShowGenres] = useState(null);
     const [menu , setMenu] = useState(false);
-    const [username , setUsername] = useState('');
     const menuRef = useRef();
 
     const handleVisibility = (e)=>{
@@ -27,13 +28,6 @@ const Header = () => {
     
 
     useEffect(()=>{
-      const token = localStorage.getItem('token');
-      if (token) {
-          const decodedToken = jwtDecode(token);
-        
-          const { username } = decodedToken;
-          setUsername(username);
-        }
 
         const fetchMovieGenres = async () => {
             const response = await fetch(`http://localhost:5000/api/genres/movies`);

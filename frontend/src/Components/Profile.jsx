@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
+import { UserAuthContext } from '../Context/userAuth';
+import { useContext } from 'react';
 
-const Profile = ({username}) => {
+const Profile = () => {
+    const {username} = useContext(UserAuthContext);
+    
     const navigate = useNavigate();
     const [profile , setProfile] = useState(false);
     const profileRef = useRef();
@@ -32,7 +36,7 @@ const Profile = ({username}) => {
             <IoPersonCircleSharp />
             <div ref={profileRef} className={`text-base ${profile?'block':'hidden'} right-0 p-4 grid gap-4 top-[2rem] bg-cyan-500 min-w-[10rem] absolute`}>
                 <p>{username}</p>
-                <nav><button>History</button></nav>
+                <nav><a href={`/api/history`}>History</a></nav>
                 <a href="/" onClick={LogOut}>Logout</a>
             </div>
         </button>
