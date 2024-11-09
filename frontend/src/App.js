@@ -9,6 +9,8 @@ import SearchPage from './pages/SearchPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomeRoute from './ProtectedRoutes/HomeRoute';
 function App() {
+  const token = localStorage.getItem('token');
+  console.log(token.username);
   return (
     <div>
       <Router> 

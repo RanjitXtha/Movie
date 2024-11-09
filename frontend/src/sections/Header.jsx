@@ -1,15 +1,30 @@
 import React, { useEffect , useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Search from '../Components/Search';
+import Profile from '../Components/Profile';
 import { GiHamburgerMenu } from "react-icons/gi";
 
 const Header = () => {
     const [movieGenres , setMovieGenres] = useState(null);
     const [tvShowGenres , setTvShowGenres] = useState(null);
-
+    const [menu , setMenu] = useState(false);
     const menuRef = useRef();
 
-    const [menu , setMenu] = useState(false);
+    const handleVisibility = (e)=>{
+      if(menuRef.current && !menuRef.current.contains(e.target)){
+        setMenu(false);
+      }
+
+    }
+
+    useEffect(()=>{
+      document.addEventListener("mousedown",handleVisibility);
+      return ()=>{
+        document.removeEventListener("mousedown",handleVisibility);
+      }
+    },[])
+
+    
 
     useEffect(()=>{
         const fetchMovieGenres = async () => {
@@ -47,7 +62,7 @@ const Header = () => {
             <div className='mt-2 hidden text-sm  group-hover:grid grid-cols-2 gap-x-6 gap-y-2  transition duration-500 ease-in-out '>
               {
                 movieGenres && movieGenres.map((genre)=>(
-                  <Link to={`/api/movies/genre?genreType=${genre.id}&page=1`}>
+                  <Link key={genre.id} to={`/api/movies/genre?genreType=${genre.id}&page=1`}>
                     <p>{genre.name}</p>
                   </Link>
                 ))
@@ -84,7 +99,7 @@ const Header = () => {
             <div className='hidden absolute p-4 text-md  group-hover:grid grid-cols-[repeat(3,9rem)] gap-4 bg-cyan-500  top-[1.7rem] left-0 z-[200] transition duration-500 ease-in-out '>
               {
                 movieGenres && movieGenres.map((genre)=>(
-                  <Link to={`/api/movies/genre?genreType=${genre.id}&page=1`}>
+                  <Link key={genre.id} to={`/api/movies/genre?genreType=${genre.id}&page=1`}>
                     <p>{genre.name}</p>
                   </Link>
                 ))
@@ -112,9 +127,10 @@ const Header = () => {
             </nav>
         </div>
         
-        <Search />
-
-     
+        <div className='flex justify-end gap-6 '>
+          <Search />
+          <Profile />
+        </div>
 
       </header>
   )

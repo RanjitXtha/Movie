@@ -19,6 +19,31 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please provide a password'],
         minlength: 8
     },
+    recentHistory: [
+        {
+          movieId: { type: String, required: true },
+          title: { type: String, required: true },
+          image:{type:String},
+          watchedAt: { type: Date, default: Date.now }
+        }
+      ],
+
+      favourites: [
+        {
+          movieId: { type: String, required: true },
+          title: { type: String, required: true },
+          image:{type:String},
+        }
+      ],
+
+      watchLater: [
+        {
+          movieId: { type: String, required: true },
+          title: { type: String, required: true },
+          image:{type:String},
+        }
+      ],
+
 },{timestamps:true});
 
 module.exports = mongoose.model('userData',userSchema);

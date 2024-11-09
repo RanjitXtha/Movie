@@ -20,10 +20,12 @@ const Search = () => {
 
   return (
     <div>
-        <span className='flex justify-end relative'>
+        <span className='flex justify-end pt-[3px]'>
                   
         <input type="text" placeholder='Search' className={`${!searchbar?'w-0':'w-full'} 
-            placeholder-white px-2 focus:outline-none transition-all bg-transparent  `} 
+            placeholder-white px-[2rem] md:px-2 focus:outline-none transition-all bg-transparent
+                absolute md:static top-[3rem] left-0 right-0
+            `} 
             onChange={(e)=>setSearchQuery(e.target.value)}
             onKeyDown={handleSearch}
             />
