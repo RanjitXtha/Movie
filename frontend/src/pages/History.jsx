@@ -42,7 +42,7 @@ const History = () => {
       <h1 className='titles'>Your Watch History</h1>
       <div className="max-w-[70rem] mx-auto">
         {history.map((movie) => (
-          <div key={movie.movieId} className="flex gap-6 items-center justify-between border-b-[1px] py-3 border-gray-700">
+          <div key={movie.movieId} className="flex gap-6 items-center justify-between border-b-[1px]  px-2 py-3 border-gray-700">
             <div className='flex items-center gap-6'>
       
              <p className='text-sm'>{new Date(movie.watchedAt).toLocaleDateString()}</p>
