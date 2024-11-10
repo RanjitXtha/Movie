@@ -30,11 +30,20 @@ const addFavourite = async(req,res)=>{
            movieId , title , image
        }
 
-       const updateData = await userSchema.findByIdAndUpdate(
-           userId,
-           {$push:{favourites:movieData}},
-           {new:true}
-       )
+       const user = await userSchema.findById(userId);
+
+       if(!user){
+        return res.status(404).json({ message: 'User not found' });
+       }
+       const movieExists = user.favourites.some((movie) => String(movie.movieId) === String(movieId));
+       //movie.movidId and movieId maybe be diff datatypes. String vs Int
+       if (movieExists) {
+        return res.status(400).json({ message: 'Movie already in favourites' });
+      }
+
+      user.favourites.push(movieData);
+      await user.save();
+
        res.status(200).json({ message: 'Movie added to favourites'});
    }catch(err){
        console.log(err);
@@ -48,11 +57,21 @@ const addWatchLater = async(req,res)=>{
     const movieData = {
       movieId, title , image
     };
-    console.log(movieData);
 
-    const updatedData = await userSchema.findOneAndUpdate(
-      userId,{$push:{watchLater:movieData}},{new:true}
-    )
+    const user = await userSchema.findById(userId);
+
+    if(!user){
+     return res.status(404).json({ message: 'User not found' });
+    }
+    const movieExists = user.watchLater.some((movie) => String(movie.movieId) === String(movieId));
+    if (movieExists) {
+     return res.status(400).json({ message: 'Movie already in watch later' });
+   }
+
+   user.watchLater.push(movieData);
+   await user.save();
+
+    
     res.status(200).json({ message: 'Movie added to watchLater'});
 
   }catch(err){
@@ -98,7 +117,6 @@ const getWatchLater = async(req,res)=>{
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    console.log(user)
     res.json(user.watchLater);
   } catch (error) {
     console.error(error);
@@ -136,7 +154,7 @@ const deleteFavourite = async(req,res)=>{
       return res.status(404).json({ message: 'User not found' });
     }
 
-    user.recentHistory = user.favourites.filter(
+    user.favourites = user.favourites.filter(
       (item) => item.movieId !== movieId
     );
 
@@ -157,7 +175,7 @@ const deleteWatchLater = async(req,res)=>{
       return res.status(404).json({ message: 'User not found' });
     }
 
-    user.recentHistory = user.watchLater.filter(
+    user.watchLater = user.watchLater.filter(
       (item) => item.movieId !== movieId
     );
 
