@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserAuthContext } from '../Context/userAuth';
 import Header from '../sections/Header';
-
+ 
 const Favourites = () => {
   const { userId } = useContext(UserAuthContext);
   const [favourites, setFavourites] = useState([]);

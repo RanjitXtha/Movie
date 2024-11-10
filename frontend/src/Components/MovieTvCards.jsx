@@ -26,7 +26,7 @@ const MovieTvCards = ({movie,type}) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(movieData), // Convert the object to a JSON string
+          body: JSON.stringify(movieData), 
         });
         const data = await response.json();
         console.log(data);
