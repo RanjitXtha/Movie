@@ -3,35 +3,35 @@ import { useParams } from 'react-router-dom';
 import { UserAuthContext } from '../Context/userAuth';
 import Header from '../sections/Header';
 
-const History = () => {
+const WatchLater = () => {
   const { userId } = useContext(UserAuthContext);
-  const [history, setHistory] = useState([]);
+  const [WatchLater, setWatchLater] = useState([]);
 
   useEffect(() => {
-    const fetchHistory = async () => {
+    const fetchWatchLater = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/${userId}/history`);
+        const response = await fetch(`http://localhost:5000/api/${userId}/watchlater`);
         const data = await response.json();
-        const sortedHistory = data.sort((a, b) => new Date(b.watchedAt) - new Date(a.watchedAt));
-        setHistory(sortedHistory);
+        const sortedWatchLater = data.sort((a, b) => new Date(b.watchedAt) - new Date(a.watchedAt));
+        setWatchLater(sortedWatchLater);
       } catch (error) {
-        console.error('Error fetching history:', error);
+        console.error('Error fetching WatchLater:', error);
       }
     };
 
-    fetchHistory();
+    fetchWatchLater();
   }, [userId]);
 
-  const removeFromHistory = async (movieId) => {
+  const removeFromWatchLater = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/${userId}/history/${movieId}`, {
+      const response = await fetch(`http://localhost:5000/api/${userId}/watchlater/${movieId}`, {
         method: 'DELETE',
       });
       const data = await response.json();
       console.log(data);
-      setHistory((prevHistory) => prevHistory.filter(movie => movie.movieId !== movieId));
+      setWatchLater((prevFav) => prevFav.filter(movie => movie.movieId !== movieId));
     } catch (error) {
-      console.error('Error removing movie from history:', error);
+      console.error('Error removing movie from WatchLater:', error);
     }
   };
 
@@ -39,9 +39,9 @@ const History = () => {
     <div className='text-white'>
       <Header />
       <div className='pt-[5rem] padding'>
-      <h1 className='titles'>Your Watch History</h1>
+      <h1 className='titles'>Your WatchLater</h1>
       <div className="max-w-[70rem] mx-auto">
-        {history.map((movie) => (
+        {WatchLater.map((movie) => (
           <div key={movie.movieId} className="flex gap-6 items-center justify-between border-b-[1px] py-3 border-gray-700">
             <div className='flex items-center gap-6'>
       
@@ -52,7 +52,7 @@ const History = () => {
               
             
 
-            <button onClick={() => removeFromHistory(movie.movieId)}>Remove</button>
+            <button onClick={() => removeFromWatchLater(movie.movieId)}>Remove</button>
           </div>
         ))}
       </div>
@@ -63,4 +63,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default WatchLater;

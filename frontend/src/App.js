@@ -8,7 +8,10 @@ import TvPage from './pages/TvPage';
 import SearchPage from './pages/SearchPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomeRoute from './ProtectedRoutes/HomeRoute';
-import History from './pages/History'
+import History from './pages/History';
+import Favourites from './pages/Favourites';
+import WatchLater from './pages/WatchLater';
+
 function App() {
   return (
     <div>
@@ -25,7 +28,10 @@ function App() {
           <Route path='/api/tvshows/:category' element={<Tvshows />} />
           <Route path='/api/tvshows/tv/:tvId' element={<TvPage />} />
           <Route path='/api/search' element={<SearchPage />} />
-          <Route path='/api/:userId/history' element={<History />} />
+
+          <Route path='/api/history' element={<History />} />
+          <Route path='/api/favourites' element={<Favourites />} />
+          <Route path='/api/watchlater' element={<WatchLater />} />
         </Routes>
       </Router>
     </div>

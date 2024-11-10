@@ -3,35 +3,35 @@ import { useParams } from 'react-router-dom';
 import { UserAuthContext } from '../Context/userAuth';
 import Header from '../sections/Header';
 
-const History = () => {
+const Favourites = () => {
   const { userId } = useContext(UserAuthContext);
-  const [history, setHistory] = useState([]);
+  const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
-    const fetchHistory = async () => {
+    const fetchFavourites = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/${userId}/history`);
+        const response = await fetch(`http://localhost:5000/api/${userId}/favourites`);
         const data = await response.json();
-        const sortedHistory = data.sort((a, b) => new Date(b.watchedAt) - new Date(a.watchedAt));
-        setHistory(sortedHistory);
+        const sortedFavourites = data.sort((a, b) => new Date(b.watchedAt) - new Date(a.watchedAt));
+        setFavourites(sortedFavourites);
       } catch (error) {
-        console.error('Error fetching history:', error);
+        console.error('Error fetching Favourites:', error);
       }
     };
 
-    fetchHistory();
+    fetchFavourites();
   }, [userId]);
 
-  const removeFromHistory = async (movieId) => {
+  const removeFromFavourites = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/${userId}/history/${movieId}`, {
+      const response = await fetch(`http://localhost:5000/api/${userId}/favourites/${movieId}`, {
         method: 'DELETE',
       });
       const data = await response.json();
       console.log(data);
-      setHistory((prevHistory) => prevHistory.filter(movie => movie.movieId !== movieId));
+      setFavourites((prevFav) => prevFav.filter(movie => movie.movieId !== movieId));
     } catch (error) {
-      console.error('Error removing movie from history:', error);
+      console.error('Error removing movie from favourites:', error);
     }
   };
 
@@ -39,9 +39,9 @@ const History = () => {
     <div className='text-white'>
       <Header />
       <div className='pt-[5rem] padding'>
-      <h1 className='titles'>Your Watch History</h1>
+      <h1 className='titles'>Your Favourites</h1>
       <div className="max-w-[70rem] mx-auto">
-        {history.map((movie) => (
+        {favourites.map((movie) => (
           <div key={movie.movieId} className="flex gap-6 items-center justify-between border-b-[1px] py-3 border-gray-700">
             <div className='flex items-center gap-6'>
       
@@ -52,7 +52,7 @@ const History = () => {
               
             
 
-            <button onClick={() => removeFromHistory(movie.movieId)}>Remove</button>
+            <button onClick={() => removeFromFavourites(movie.movieId)}>Remove</button>
           </div>
         ))}
       </div>
@@ -63,4 +63,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default Favourites;

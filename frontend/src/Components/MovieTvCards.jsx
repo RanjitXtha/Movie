@@ -1,24 +1,15 @@
 import React, { useState , useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import { UserAuthContext } from '../Context/userAuth';
+import { useContext } from 'react';
 
 
 const MovieTvCards = ({movie,type}) => {
+  const { userId } = useContext(UserAuthContext);
     const baseUrl = "https://image.tmdb.org/t/p/";
     const heroPosterSize = "w1280";
     const moviePosterSize = 'w342'
-    const [userId , setUserId] = useState('');
-
-    useEffect(()=>{
-      const token = localStorage.getItem('token');
-      if(token){
-        const decodedToken = jwtDecode(token);
-        const {userId} = decodedToken;
-        setUserId(userId);
-      }
-    },[])
-
-
 
     const addToHistory = async()=>{
       console.log('runnin')
@@ -26,10 +17,11 @@ const MovieTvCards = ({movie,type}) => {
         const movieData = {
           movieId:movie.id , 
           title:movie.title || movie.name , 
-          image:movie.poster_path
+          image:movie.poster_path,
+          userId: userId,
         }
 
-        const response = await fetch(`http://localhost:5000/api/${userId}/history`, {
+        const response = await fetch(`http://localhost:5000/api/history`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

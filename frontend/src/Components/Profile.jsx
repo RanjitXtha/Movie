@@ -5,7 +5,7 @@ import { UserAuthContext } from '../Context/userAuth';
 import { useContext } from 'react';
 
 const Profile = () => {
-    const {username} = useContext(UserAuthContext);
+    const {username , userId} = useContext(UserAuthContext);
     
     const navigate = useNavigate();
     const [profile , setProfile] = useState(false);
@@ -37,6 +37,8 @@ const Profile = () => {
             <div ref={profileRef} className={`text-base ${profile?'block':'hidden'} right-0 p-4 grid gap-4 top-[2rem] bg-cyan-500 min-w-[10rem] absolute`}>
                 <p>{username}</p>
                 <nav><a href={`/api/history`}>History</a></nav>
+                <nav><a href={`/api/favourites`}>Favourites</a></nav>
+                <nav><a href={`/api/watchlater`}>Watch Later</a></nav>
                 <a href="/" onClick={LogOut}>Logout</a>
             </div>
         </button>
