@@ -1,12 +1,16 @@
-import React, { useEffect , useState } from 'react'
+import React, { useEffect , useContext, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import Profile from '../assets/profile.png';
 import MovieTVSection from '../sections/MovieTVsection';
 import Header from '../sections/Header';
 import Ratingbar from '../Components/Ratingbar';
+import { UserAuthContext } from '../Context/userAuth';
+import { MdWatchLater } from "react-icons/md";
+import { FaHeart } from "react-icons/fa";
 
 const TvPage = () => {
+  const { userId } = useContext(UserAuthContext);
     const {tvId} = useParams();
     const [tv, setTv] = useState(null);
     const [trailer, setTrailer] = useState(null);
@@ -21,6 +25,54 @@ const TvPage = () => {
       if (scrollContainerRef.current) {
         scrollContainerRef.current.scrollLeft += scrollOffset;
       }
+    }
+
+    const addToFavourite = async()=>{
+      try{
+        const tvData = {
+          movieId:tv.id , 
+          title:tv.name , 
+          image:tv.poster_path,
+          userId: userId,
+        };
+        
+        const response = await fetch(`http://localhost:5000/api/favourites`,{
+          method: 'POST',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify(tvData)
+          });
+
+          const data = await response.json();
+          console.log(data);
+      }catch(err){
+        console.log(err);
+      }
+    }
+
+    const addToWatchLater = async()=>{
+      const tvData = {
+        movieId:tv.id , 
+        title:tv.name , 
+        image:tv.poster_path,
+        userId: userId,
+      }
+      try{
+      const response = await fetch(`http://localhost:5000/api/watchlater`,{
+        method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(tvData), 
+        });
+
+        const data = await response.json();
+        console.log(data);
+      }catch(err){
+        console.log(err);
+      }
+      
     }
 
     useEffect(()=>{
@@ -81,6 +133,11 @@ const TvPage = () => {
               </div>
       
               <div className='flex w-full flex-col gap-3'>
+              <span>
+          <button onClick={addToFavourite} className='mr-4 bg-cyan-400 px-3 py-2 rounded-xl'><FaHeart className='inline mr-3' />Add to Favourite </button>
+          <button onClick={addToWatchLater} className='mr-4 bg-cyan-400 px-3 py-2 rounded-xl'><MdWatchLater className='inline mr-3' />Watch Later </button>
+           
+         </span>
                 <h1 className='font-bold text-2xl'>{tv.name}</h1>
                 <span className='flex gap-5'>
                   {tv.genres.map((genre) => (

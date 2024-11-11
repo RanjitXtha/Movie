@@ -29,7 +29,7 @@ const Moviepage = () => {
         scrollContainerRef.current.scrollLeft += scrollOffset;
       }
     }
-
+ 
     const addToFavourite = async()=>{
       try{
         const movieData = {
@@ -124,8 +124,8 @@ const Moviepage = () => {
 
         <div className='flex w-full flex-col gap-3'>
          <span>
-          <button onClick={addToFavourite} className='mr-4 bg-cyan-400 px-3 py-2 rounded-xl'><FaHeart />Add to Favourite </button>
-          <button onClick={addToWatchLater} className='mr-4 bg-cyan-400 px-3 py-2 rounded-xl'><MdWatchLater />Watch Later </button>
+          <button onClick={addToFavourite} className='mr-4 bg-cyan-400 px-3 py-2 rounded-xl'><FaHeart className='inline mr-3' />Add to Favourite </button>
+          <button onClick={addToWatchLater} className='mr-4 bg-cyan-400 px-3 py-2 rounded-xl'><MdWatchLater className='inline mr-3' />Watch Later </button>
            
          </span>
           <h1 className='font-bold text-2xl'>{movie.title}</h1>

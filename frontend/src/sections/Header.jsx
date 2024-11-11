@@ -57,7 +57,7 @@ const Header = () => {
 
       <div ref={menuRef} className={`overflow-y-scroll hide-scrollbar ${menu?'w-[17rem]':'w-0 hidden'} bg-black p-4 gap-3 flex flex-col left-0 top-0 h-screen absolute`}>
         <nav><button onClick={()=>setMenu(!menu)}>Close Menu</button></nav>
-        <nav className='border-b-[1px] pb-2 border-gray-600'><Link to="/">Home</Link></nav>
+        <nav className='z-[200] border-b-[1px] pb-2 border-gray-600'><Link to="/">Home</Link></nav>
         
         <nav className='group border-b-[1px] pb-2 border-gray-600'>
             <Link>Genre</Link>

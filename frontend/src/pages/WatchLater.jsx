@@ -42,12 +42,12 @@ const WatchLater = () => {
       <h1 className='titles'>Your WatchLater</h1>
       <div className="max-w-[70rem] mx-auto">
         {WatchLater.map((movie,index) => (
-          <div key={movie.movieId} className="flex gap-6 items-center justify-between border-b-[1px]  px-2 py-3 border-gray-700">
+          <div key={movie.movieId} className="flex flex-col sm:flex-row gap-6 items-center justify-between border-b-[1px]  px-2 py-3 border-gray-700">
             <div className='flex items-center gap-6'>
       
-             <p className='text-lg'>{index+1}.</p>
+             <p className='text-sm sm:text-lg'>{index+1}.</p>
             <img className='w-[4rem] h-[4rem] object-cover' src={`https://image.tmdb.org/t/p/w185${movie.image}`} alt={movie.title} />
-            <h3 className='text-lg font-bold'>{movie.title}</h3>
+            <h3 className='text-sm sm:text-lg font-bold'>{movie.title}</h3>
             </div>
               
             
