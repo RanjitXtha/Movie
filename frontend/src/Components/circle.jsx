@@ -1,14 +1,12 @@
 const Circle = ({ score }) => {
-    // Convert score to percentage
     const percentage = (score / 10) * 100;
   
-    // Determine color based on score
     const color = score >= 8 ? 'text-green-500' : score <= 4 ? 'text-red-500' : 'text-yellow-500';
     const strokeColor = score >= 8 ? '#10B981' : score <= 4 ? '#EF4444' : '#FBBF24';
   
     return (
       <div className="flex items-center justify-center">
-        <svg width="100" height="100" viewBox="0 0 36 36" className="block max-w-[80px] max-h-[80px]">
+        <svg width="40" height="40" viewBox="0 0 36 36" className="block max-w-[80px] max-h-[80px]">
           <path
             className="text-gray-200"
             d="M18 2.0845
@@ -29,7 +27,7 @@ const Circle = ({ score }) => {
             strokeWidth="3.8"
             strokeLinecap="round"
           />
-          <text x="18" y="20.35" className="text-white font-bold text-sm" textAnchor="middle">
+          <text x="18" y="20.35" className=" font-bold text-xs" textAnchor="middle">
             {Math.round(percentage)}%
           </text>
         </svg>

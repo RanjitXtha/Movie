@@ -32,6 +32,10 @@ img{
     .max-container{
         @apply max-w-[1440px] mx-auto w-full
     }
+
+    .button{
+        @apply py-2 px-3 bg-blue-500 font-bold
+    }
     
 }
 

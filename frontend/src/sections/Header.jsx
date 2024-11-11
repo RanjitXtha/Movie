@@ -56,7 +56,7 @@ const Header = () => {
      
 
       <div ref={menuRef} className={`overflow-y-scroll hide-scrollbar ${menu?'w-[17rem]':'w-0 hidden'} bg-black p-4 gap-3 flex flex-col left-0 top-0 h-screen absolute`}>
-        <nav><button onClick={()=>setMenu(!menu)}>Close Menu</button></nav>
+        <nav><button className='button' onClick={()=>setMenu(!menu)}>Close Menu</button></nav>
         <nav className='z-[200] border-b-[1px] pb-2 border-gray-600'><Link to="/">Home</Link></nav>
         
         <nav className='group border-b-[1px] pb-2 border-gray-600'>
@@ -98,7 +98,7 @@ const Header = () => {
 
           <nav className='relative group'>
             <Link >Genre</Link>
-            <div className='hidden absolute p-4 text-md  group-hover:grid grid-cols-[repeat(3,9rem)] gap-4 bg-cyan-500  top-[1.7rem] left-0 z-[200] transition duration-500 ease-in-out '>
+            <div className='hidden absolute p-4 text-md  group-hover:grid grid-cols-[repeat(3,9rem)] gap-4 bg-blue-500  top-[1.7rem] left-0 z-[200] transition duration-500 ease-in-out '>
               {
                 movieGenres && movieGenres.map((genre)=>(
                   <Link key={genre.id} to={`/api/movies/genre?genreType=${genre.id}&page=1`}>
@@ -111,7 +111,7 @@ const Header = () => {
 
           <nav className='relative group'>
             <Link to="">Movies</Link>
-            <div className='hidden group-hover:block p-4 absolute w-56 bg-cyan-500  top-[1.7rem] left-0 z-[200]'>
+            <div className='hidden group-hover:block p-4 absolute w-56 bg-blue-500  top-[1.7rem] left-0 z-[200]'>
               <nav><Link to="/api/movies/latest">Latest</Link></nav>
               <nav><Link to="/api/movies/popular">Popular</Link></nav>
               <nav><Link to="">Upcoming</Link></nav>
@@ -119,7 +119,7 @@ const Header = () => {
           </nav>
             <nav className='relative group'>
               <Link to=""> TV Shows</Link>  
-              <div className='hidden group-hover:block absolute p-4 text-md bg-cyan-500 w-[10rem]  top-[1.7rem] left-0 z-[200]'>
+              <div className='hidden group-hover:block absolute p-4 text-md bg-blue-500 w-[10rem]  top-[1.7rem] left-0 z-[200]'>
                 <nav><Link to="/api/tvshows/trending">Trending</Link></nav>
                 <nav><Link to="/api/tvshows/airing_today">Airing Today</Link></nav>
                 <nav><Link to="/api/tvshows/on_the_air">On The Air</Link></nav>

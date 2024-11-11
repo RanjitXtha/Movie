@@ -1,6 +1,6 @@
 import React, { useState , useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import moviepic from '../assets/moviepic.png';
 import { UserAuthContext } from '../Context/userAuth';
 import { useContext } from 'react';
 
@@ -35,20 +35,12 @@ const MovieTvCards = ({movie,type}) => {
       }
     }
 
-    const addToFavourite = ()=>{
-      
-    }
-
-    const addToWatchLater = ()=>{
-      
-    }
-
   return (
     <Link onClick={addToHistory} to={type === 'movie'?`/api/movies/movie/${movie.id}`:`/api/tvshows/tv/${movie.id}`}>
         <div key={movie.id} className='w-full'>
-            <img src={`${baseUrl}${moviePosterSize}${movie.poster_path}`} alt={movie.title} />
+            <img src={movie.poster_path?`${baseUrl}${moviePosterSize}${movie.poster_path}`:moviepic} alt={movie.title} />
         </div>
-        <div>
+        <div className='mt-1 overflow-hidden'>
             <p className="font-bold w-[185px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
               {movie.title}
             </p>

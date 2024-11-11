@@ -25,7 +25,7 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prevIndex) => (prevIndex < 4 ? prevIndex + 1 : 0));
-    }, 5000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, []);
@@ -54,7 +54,7 @@ const Hero = () => {
                 WebkitBoxOrient: 'vertical',
               }}
             className='text-wrap overflow-hidden truncate text-ellipsis w-full whitespace-pre-line max-h-[4.5em]'>{hero[activeIndex].overview}</p>
-            <button className='ring-2 py-2 px-3 rounded-3xl'>
+            <button className='button'>
               Watch Now
             </button>
           </div>

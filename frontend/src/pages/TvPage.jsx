@@ -8,6 +8,7 @@ import Ratingbar from '../Components/Ratingbar';
 import { UserAuthContext } from '../Context/userAuth';
 import { MdWatchLater } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
+import moviepic from '../assets/moviepic.png';
 
 const TvPage = () => {
   const { userId } = useContext(UserAuthContext);
@@ -122,7 +123,7 @@ const TvPage = () => {
                 allowFullScreen
               ></iframe>:
               <div className='w-full h-[40rem] pt-[4rem]'>
-                  <img src={`${baseUrl}${heroPosterSize}${tv.backdrop_path}`} alt={tv.id} />
+                  <img src={tv.backdrop_path?`${baseUrl}${heroPosterSize}${tv.backdrop_path}`:moviepic} alt={tv.id} />
               </div>
             }
             
@@ -134,8 +135,8 @@ const TvPage = () => {
       
               <div className='flex w-full flex-col gap-3'>
               <span>
-          <button onClick={addToFavourite} className='mr-4 bg-cyan-400 px-3 py-2 rounded-xl'><FaHeart className='inline mr-3' />Add to Favourite </button>
-          <button onClick={addToWatchLater} className='mr-4 bg-cyan-400 px-3 py-2 rounded-xl'><MdWatchLater className='inline mr-3' />Watch Later </button>
+          <button onClick={addToFavourite} className='mr-4 bg-blue-500 px-3 py-2 rounded-xl'><FaHeart className='inline mr-3' />Add to Favourite </button>
+          <button onClick={addToWatchLater} className='mr-4 bg-blue-500 px-3 py-2 rounded-xl'><MdWatchLater className='inline mr-3' />Watch Later </button>
            
          </span>
                 <h1 className='font-bold text-2xl'>{tv.name}</h1>
