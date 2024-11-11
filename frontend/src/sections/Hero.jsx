@@ -15,12 +15,22 @@ const Hero = () => {
       const data = await response.json();
       setHero(data.results.slice(0,5));
     } 
+    
     heroMovies()
   },[])
 
   const buttons = [
     1,2,3,4,5
   ]
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) => (prevIndex < 4 ? prevIndex + 1 : 0));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  
 
   return (
 
