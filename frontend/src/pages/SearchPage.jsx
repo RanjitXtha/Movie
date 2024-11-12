@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Header from '../sections/Header';
 import { Link } from 'react-router-dom';
 import moviepic from '../assets/moviepic.png';
+import MovieTvCards from '../Components/MovieTvCards';
 
 const SearchPage = () => {
   const location = useLocation();
@@ -35,6 +36,7 @@ const SearchPage = () => {
     fetchSearchData();
   }, [searchQuery]);
 
+
   return (
     <div className='bg-black text-white'>
       <Header />
@@ -42,46 +44,25 @@ const SearchPage = () => {
         <h1 className='titles'>Search Results for "{searchQuery}"</h1>
         {loading && <p>Loading...</p>}
         {error && <p className="text-red-500">{error}</p>}
+        
         <h2 className="titles">Movies</h2>
-        <div className='flex flex-wrap gap-y-6 justify-between'>
+    
+        <div className='grid grid-cols-2  md:grid-cols-4 xl:grid-cols-5 gap-y-6 gap-x-3 justify-between'>
         
           {movies && movies.map((movie) => (
-            <Link key={movie.id} to={`/api/movies/movie/${movie.id}`}>
-              <div className='w-full'>
-                <img src={movie.poster_path?`${baseUrl}${moviePosterSize}${movie.poster_path}`:moviepic} alt={movie.title} />
-              </div>
-              <div>
-                <p className="font-bold w-[185px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
-                  {movie.title}
-                </p>
-                <span className='text-sm flex gap-4'>
-                  <p>{movie.release_date?.substring(0, 4)}</p>
-                  <p>Rating: {movie.vote_average?.toFixed(1)}</p>
-                </span>
-              </div>
-            </Link>
+            <MovieTvCards movie={movie} type={"movie"} />
           ))}
         </div>
-        <h2 className=" titles">TV Shows</h2>
-        <div className='flex flex-wrap gap-y-6 justify-between mt-8'>
-          
-          {tvShows && tvShows.map((tv) => (
-            <Link key={tv.id} to={`/api/tvshows/tv/${tv.id}`}>
-              <div className='w-full'>
-                <img src={tv.poster_path?`${baseUrl}${moviePosterSize}${tv.poster_path}`:moviepic} alt={tv.name} />
-              </div>
-              <div>
-                <p className="font-bold w-[185px] truncate overflow-hidden text-ellipsis whitespace-nowrap">
-                  {tv.name}
-                </p>
-                <span className='text-sm flex gap-4'>
-                  <p>{tv.first_air_date?.substring(0, 4)}</p>
-                  <p>Rating: {tv.vote_average?.toFixed(1)}</p>
-                </span>
-              </div>
-            </Link>
-          ))}
+        {!tvShows && <div>
+          <h2 className="titles mt-[5rem]">TV Shows</h2>
+          <div className='grid grid-cols-2  md:grid-cols-4 xl:grid-cols-5 gap-y-6 gap-x-3 justify-between'>
+            
+            {tvShows && tvShows.map((tv) => (
+              <MovieTvCards movie={tv} type={"tv"} />
+            ))}
+          </div>
         </div>
+        }
       </section>
     </div>
   );

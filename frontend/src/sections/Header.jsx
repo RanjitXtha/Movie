@@ -10,6 +10,7 @@ const Header = () => {
   const { username } = useContext(UserAuthContext);
     const [movieGenres , setMovieGenres] = useState(null);
     const [menu , setMenu] = useState(false);
+    const [headerbg , setHeaderbg] = useState(false);
     const menuRef = useRef();
 
     const handleVisibility = (e)=>{
@@ -24,6 +25,22 @@ const Header = () => {
         document.removeEventListener("mousedown",handleVisibility);
       }
     },[]);
+
+    const handleHeaderBg=()=>{
+      if(window.scrollY>100){
+        setHeaderbg(true);
+      }else{
+        setHeaderbg(false)
+      }
+    }
+
+    useEffect(()=>{
+      document.addEventListener("scroll",handleHeaderBg)
+
+      return ()=>{
+        document.removeEventListener("scroll",handleHeaderBg);
+      }
+    },[])
     
 
     useEffect(()=>{
@@ -40,7 +57,7 @@ const Header = () => {
   
   
   return (
-    <header className='w-full h-12  max-container fixed left-0 right-0 padding z-50 py-[1rem] flex flex-row md:grid md:grid-cols-[15%_1fr_21%] gap-6 justify-between md:justify-center text-white font-medium '>
+    <header className={`${headerbg?'bg-black':'bg-transparent'} bg-opacity-85 w-full h-14  max-container fixed left-0 right-0 padding z-50 py-[1rem] flex flex-row md:grid md:grid-cols-[15%_1fr_21%] gap-6 justify-between md:justify-center text-white font-medium `}>
       <button onClick={()=>setMenu(!menu)} className='block md:hidden text-xl relative'><GiHamburgerMenu />
       </button>
 
@@ -82,7 +99,7 @@ const Header = () => {
             </nav>
       </div>
 
-        <div className='w-14'>NEPFLIX</div>
+        <a className='w-14 font-extrabold text-lg' href="/">NEPFLIX</a>
 
         <div className='header-navs hidden md:flex justify-center gap-10 '>
           <nav><Link to="/">Home</Link></nav>

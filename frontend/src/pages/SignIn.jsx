@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import bg2 from '../assets/bg2.jpg'
+import { jwtDecode } from 'jwt-decode';
+import { UserAuthContext } from '../Context/userAuth';
+import { useContext } from 'react';
+
 
 const SignIn = () => {
+    const { setUsername, setUserId } = useContext(UserAuthContext); 
     const [email , setEmail] = useState('');
     const [password , setPassword] = useState('');
-    const [username , setUsername] = useState('');
+    const [username , setUsernameSignIn] = useState('');
+    const [error , setError] = useState('');
 
     const navigate = useNavigate();
 
@@ -15,6 +21,12 @@ const SignIn = () => {
         try{
             const userData = {email, username, password};
             const data = JSON.stringify(userData)
+
+            if (password.length < 8) {
+                setError("Password must be at least 8 characters long.");
+                return;
+              }
+              setError('');
                      
             const response = await fetch('http://localhost:5000/signup',{
                 method:'POST',
@@ -28,12 +40,16 @@ const SignIn = () => {
                 const tokendata = await response.json();
                 localStorage.setItem('token',tokendata.token)
                 console.log('token created');
+
+                const decodedToken = jwtDecode(tokendata.token);
+                setUsername(decodedToken.username); 
+                setUserId(decodedToken.userId); 
                 navigate('/');
             }else{
                 const error = await response.json();
-                alert(error.message);
+                setError(error.message);
             }
-
+ 
         }catch(err){
             console.log(err);
         }
@@ -46,10 +62,11 @@ const SignIn = () => {
 
                 <input className='input' type="email" id="email" placeholder="Email" onChange={(e)=>setEmail(e.target.value)} />
 
-                <input className='input' type="text" id="username" placeholder="Username" onChange={(e)=>setUsername(e.target.value)} />
+                <input className='input' type="text" id="username" placeholder="Username" onChange={(e)=>setUsernameSignIn(e.target.value)} />
 
                 <input className='input' type="password" id="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} />
             <button className="w-full button">Submit</button>
+            {error}
             <p className='text-center'>OR</p>
             <a href="/login" className="text-center hover:text-blue-500">Already have an account? Log In </a>
         </form>

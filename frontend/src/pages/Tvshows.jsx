@@ -56,7 +56,7 @@ const Tvshows = () => {
    
     useEffect(()=>{
       setPage(1);
-    },[category]);
+    },[category]); 
 
     if(!tvShows) return <div className='bg-black h-screen w-screen text-white'>Loading...</div>;
 
@@ -77,22 +77,5 @@ const Tvshows = () => {
     
   )
 }
-
-
-/* <div>
-        <h1>This is a tv show page</h1>
-        <div className='flex flex-wrap'>
-        { tvShows && tvShows.map((tv,index)=>(
-            <Link to={`/api/tv/${tv.id}`}>
-            <div className='w-52 h-64 flex-shrink-0 bg-slate-500'>
-            <img src={`${baseUrl}${moviePosterSize}${tv.poster_path}`} alt={tv.title} />
-            </div>
-            </Link>
-        ))
-            
-        }
-      </div>
-
-    </div>*/
 
 export default Tvshows

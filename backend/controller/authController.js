@@ -29,6 +29,7 @@ const SignIn = async(req,res)=>{
         return res.json({token});
     }catch(err){
         console.log('error in signup' + err);
+        res.status(400).json({message:err})
     }
 }
 

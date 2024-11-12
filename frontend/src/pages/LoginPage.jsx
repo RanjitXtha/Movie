@@ -8,6 +8,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setUsername, setUserId } = useContext(UserAuthContext); 
+  const [error , setError] = useState('')
 
   const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ const LoginPage = () => {
       navigate('/');
     } else {
       const error = await response.json();
-      alert(error.message);
+      setError(error.message);
     }
   };
 
@@ -66,6 +67,7 @@ const LoginPage = () => {
           className="input"
         />
         <button className="w-full button">Submit</button>
+        {error}
         <p className="text-center">OR</p>
         <a href="/signup" className="text-center hover:text-blue-500">
           No account? Sign up instead
