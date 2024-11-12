@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import bg2 from '../assets/bg2.jpg'
 
 const SignIn = () => {
     const [email , setEmail] = useState('');
@@ -38,23 +39,19 @@ const SignIn = () => {
         }
     }
   return (
-    <div className="grid justify-center items-center ">
-        <form className=" flex flex-col gap-y-4 my-8 " onSubmit={handleSubmit}>
-            <span className="flex gap-5">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Email" onChange={(e)=>setEmail(e.target.value)} />
-            </span>
+    <div className="grid justify-center items-center h-screen w-screen bg-cover text-white "
+    style={{backgroundImage:`url(${bg2})`}}
+    > <a className='fixed left-0 top-[2rem] text-4xl font-bold padding' href="/">NEPFLIX</a>
+        <form className=" form " onSubmit={handleSubmit}>
 
-            <span className="flex gap-5">
-                <label for="username">Username</label>
-                <input type="text" id="username" placeholder="Username" onChange={(e)=>setUsername(e.target.value)} />
-            </span>
-        
-            <span className="flex gap-5">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} />
-            </span>
-            <button className="w-20 h-8 bg-slate-900 text-white">Submit</button>
+                <input className='input' type="email" id="email" placeholder="Email" onChange={(e)=>setEmail(e.target.value)} />
+
+                <input className='input' type="text" id="username" placeholder="Username" onChange={(e)=>setUsername(e.target.value)} />
+
+                <input className='input' type="password" id="password" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} />
+            <button className="w-full button">Submit</button>
+            <p className='text-center'>OR</p>
+            <a href="/login" className="text-center hover:text-blue-500">Already have an account? Log In </a>
         </form>
        
     </div>

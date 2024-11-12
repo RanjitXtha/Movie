@@ -134,7 +134,7 @@ const Header = () => {
           {
             username?
             <Profile username={username} />
-            :<a href='/login'>Login</a>
+            :<a href='/login' className='bg-blue-500 h-8 py-1 px-4 rounded-3xl'>Login</a>
           }
           
         </div>

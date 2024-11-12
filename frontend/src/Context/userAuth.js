@@ -13,7 +13,7 @@ export const UserAuthProvider = ({children})=>{
         setUsername(username);
         setUserId(userId);
       }
-   },[username])
+   },[])
 
    return(
     <UserAuthContext.Provider value={{username , userId}}>
