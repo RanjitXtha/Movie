@@ -7,9 +7,8 @@ import { UserAuthContext } from '../Context/userAuth';
 import { useContext } from 'react';
 
 const Header = () => {
-    const {username} = useContext(UserAuthContext);
+  const { username } = useContext(UserAuthContext);
     const [movieGenres , setMovieGenres] = useState(null);
-    const [tvShowGenres , setTvShowGenres] = useState(null);
     const [menu , setMenu] = useState(false);
     const menuRef = useRef();
 
@@ -34,15 +33,7 @@ const Header = () => {
             const data = await response.json();
             setMovieGenres(data.results.genres);
         }
-
-        const fetchTvShowGenres = async () => {
-          const response = await fetch(`http://localhost:5000/api/genres/tv`);
-          const data = await response.json();
-          setTvShowGenres(data.results.genres);
-      }
-
         fetchMovieGenres();
-        fetchTvShowGenres();
     },[])
 
 
@@ -95,7 +86,7 @@ const Header = () => {
 
         <div className='header-navs hidden md:flex justify-center gap-10 '>
           <nav><Link to="/">Home</Link></nav>
-
+ 
           <nav className='relative group'>
             <Link >Genre</Link>
             <div className='hidden absolute p-4 text-md  group-hover:grid grid-cols-[repeat(3,9rem)] gap-4 bg-blue-500  top-[1.7rem] left-0 z-[200] transition duration-500 ease-in-out '>
