@@ -1,9 +1,11 @@
+require('dotenv').config();
+const SECRET_KEY = process.env.SECRET_KEY;
+console.log(SECRET_KEY);
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 
 const userSchema = require('../schema/userSchema');
 
-const SECRET_KEY= 'thisisasecretkey';
 
 const SignIn = async(req,res)=>{
     try{
