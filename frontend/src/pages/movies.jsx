@@ -27,12 +27,12 @@ const Movies = () => {
     setMovies(data.results); 
   };
 
-  const Popular = () => fetchMovies(`movie-api-blush.vercel.app/api/movies/popular?page=${page}`);
-  const Latest = () => fetchMovies(`movie-api-blush.vercel.app/api/movies/latest?page=${page}`);
-  const ByGenre = () => fetchMovies(`movie-api-blush.vercel.app/api/movies/genre?genreType=${genreType}&page=${page}`);
+  const Popular = () => fetchMovies(`https://movie-api-blush.vercel.app/api/movies/popular?page=${page}`);
+  const Latest = () => fetchMovies(`https://movie-api-blush.vercel.app/api/movies/latest?page=${page}`);
+  const ByGenre = () => fetchMovies(`https://movie-api-blush.vercel.app/api/movies/genre?genreType=${genreType}&page=${page}`);
 
   const fetchMovieGenres = async () => {
-    const response = await fetch(`movie-api-blush.vercel.app/api/genres/movies`);
+    const response = await fetch(`https://movie-api-blush.vercel.app/api/genres/movies`);
     const data = await response.json();
     const genre = data.results.genres.find(e => e.id === parseInt(genreType));
     setCategory(genre.name);

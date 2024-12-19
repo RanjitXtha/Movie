@@ -40,7 +40,7 @@ const Moviepage = () => {
           userId: userId,
         };
         
-        const response = await fetch(`movie-api-blush.vercel.app/api/favourites`,{
+        const response = await fetch(`https://movie-api-blush.vercel.app/api/favourites`,{
           method: 'POST',
           headers:{
             'Content-Type':'application/json'
@@ -63,7 +63,7 @@ const Moviepage = () => {
         userId: userId,
       }
       try{
-      const response = await fetch(`movie-api-blush.vercel.app/api/watchlater`,{
+      const response = await fetch(`https://movie-api-blush.vercel.app/api/watchlater`,{
         method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const Moviepage = () => {
 
     useEffect(()=>{
         const getMovie = async()=>{
-            const response = await fetch(`movie-api-blush.vercel.app/api/movies/movie/${movieId}`);
+            const response = await fetch(`https://movie-api-blush.vercel.app/api/movies/movie/${movieId}`);
             const data = await response.json();
             const findTrailer = data.trailer.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
             setMovie(data.details);
@@ -89,7 +89,7 @@ const Moviepage = () => {
         }
 
         const fetchMovieDetails = async () => {
-          const response = await fetch(`movie-api-blush.vercel.app/api/movies/info/${movieId}`);
+          const response = await fetch(`https://movie-api-blush.vercel.app/api/movies/info/${movieId}`);
           const data = await response.json();
           setCast(data.castData.cast);
           setRecommendation(data.similarMovies.results.slice(0,12));

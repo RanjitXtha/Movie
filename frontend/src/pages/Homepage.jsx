@@ -15,25 +15,25 @@ const Homepage = () => {
   useEffect(()=>{
  
   const PopularMovies = async()=>{
-    const response = await fetch(`movie-api-blush.vercel.app/api/movies/popular`)
+    const response = await fetch(`https://movie-api-blush.vercel.app/api/movies/popular`)
     const data = await response.json();
     setTrending(data.results.slice(0,12));
   } 
 
   const LatestMovies = async()=>{
-    const response = await fetch(`movie-api-blush.vercel.app/api/movies/latest`)
+    const response = await fetch(`https://movie-api-blush.vercel.app/api/movies/latest`)
     const data = await response.json();
     setLatestMovies(data.results.slice(0,12));
   } 
 
   const fetchLatestTvShows = async () => {
-      const response = await fetch(`movie-api-blush.vercel.app/api/tvshows/on_the_air`);
+      const response = await fetch(`https://movie-api-blush.vercel.app/api/tvshows/on_the_air`);
       const data = await response.json();
       setLatestTvShows(data.results.slice(0,12));
   }
 
   const fetchTopRatedTvShows = async () => {
-    const response = await fetch(`movie-api-blush.vercel.app/api/tvshows/top_rated`);
+    const response = await fetch(`https://movie-api-blush.vercel.app/api/tvshows/top_rated`);
     const data = await response.json();
     settopRatedTvShows(data.results.slice(0,12));
 }

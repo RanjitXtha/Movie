@@ -11,7 +11,7 @@ const Hero = () => {
 
   useEffect(()=>{
     const heroMovies = async()=>{
-      const response = await fetch(`https://movie-flax-ten.vercel.app/api/movies/latest`)
+      const response = await fetch(`https://movie-api-blush.vercel.app/api/movies/latest`)
       const data = await response.json();
       setHero(data.results.slice(0,5));
     } 

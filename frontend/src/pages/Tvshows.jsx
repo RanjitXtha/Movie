@@ -23,12 +23,12 @@ const Tvshows = () => {
         setTotalPages(data.total_pages)
       };
     
-      const Popular = () => fetchTvShows(`movie-api-blush.vercel.app/api/tvshows/popular?page=${page}`);
-      const Trending = () => fetchTvShows(`movie-api-blush.vercel.app/api/tvshows/trending?page=${page}`);
-      const Latest = () => fetchTvShows(`movie-api-blush.vercel.app/api/tvshows/latest?page=${page}`);
-      const OnTheAir = () => fetchTvShows(`movie-api-blush.vercel.app/api/tvshows/on_the_air?page=${page}`);
-      const TopRated = () => fetchTvShows(`movie-api-blush.vercel.app/api/tvshows/top_rated?page=${page}`);
-      const AiringToday = () => fetchTvShows(`movie-api-blush.vercel.app/api/tvshows/airing_today?page=${page}`);
+      const Popular = () => fetchTvShows(`https://movie-api-blush.vercel.app/api/tvshows/popular?page=${page}`);
+      const Trending = () => fetchTvShows(`https://movie-api-blush.vercel.app/api/tvshows/trending?page=${page}`);
+      const Latest = () => fetchTvShows(`https://movie-api-blush.vercel.app/api/tvshows/latest?page=${page}`);
+      const OnTheAir = () => fetchTvShows(`https://movie-api-blush.vercel.app/api/tvshows/on_the_air?page=${page}`);
+      const TopRated = () => fetchTvShows(`https://movie-api-blush.vercel.app/api/tvshows/top_rated?page=${page}`);
+      const AiringToday = () => fetchTvShows(`https://movie-api-blush.vercel.app/api/tvshows/airing_today?page=${page}`);
     
       switch (category.category) {
         case 'latest':

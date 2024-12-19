@@ -37,7 +37,7 @@ const TvPage = () => {
           userId: userId,
         };
         
-        const response = await fetch(`movie-api-blush.vercel.app/api/favourites`,{
+        const response = await fetch(`https://movie-api-blush.vercel.app/api/favourites`,{
           method: 'POST',
           headers:{
             'Content-Type':'application/json'
@@ -60,7 +60,7 @@ const TvPage = () => {
         userId: userId,
       }
       try{
-      const response = await fetch(`movie-api-blush.vercel.app/api/watchlater`,{
+      const response = await fetch(`https://movie-api-blush.vercel.app/api/watchlater`,{
         method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const TvPage = () => {
 
     useEffect(()=>{
         const fetchTvShow = async()=>{
-            const response = await fetch(`movie-api-blush.vercel.app/api/tvshows/tv/${tvId}`);
+            const response = await fetch(`https://movie-api-blush.vercel.app/api/tvshows/tv/${tvId}`);
 
             const data = await response.json();
             console.log(data)
@@ -94,7 +94,7 @@ const TvPage = () => {
         }
 
         const fetchTVShowDetails = async () => {
-          const response = await fetch(`movie-api-blush.vercel.app/api/tvshows/info/${tvId}`);
+          const response = await fetch(`https://movie-api-blush.vercel.app/api/tvshows/info/${tvId}`);
            const data = await response.json();
            let combinedCast = data.castData.cast;
 

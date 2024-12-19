@@ -10,7 +10,7 @@ const Favourites = () => {
   useEffect(() => {
     const fetchFavourites = async () => {
       try {
-        const response = await fetch(`movie-api-blush.vercel.app/api/${userId}/favourites`);
+        const response = await fetch(`https://movie-api-blush.vercel.app/api/${userId}/favourites`);
         const data = await response.json();
         const sortedFavourites = data.sort((a, b) => new Date(b.watchedAt) - new Date(a.watchedAt));
         setFavourites(sortedFavourites);
@@ -24,7 +24,7 @@ const Favourites = () => {
 
   const removeFromFavourites = async (movieId) => {
     try {
-      const response = await fetch(`movie-api-blush.vercel.app/api/${userId}/favourites/${movieId}`, {
+      const response = await fetch(`https://movie-api-blush.vercel.app/api/${userId}/favourites/${movieId}`, {
         method: 'DELETE',
       });
       const data = await response.json();

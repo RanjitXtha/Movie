@@ -17,7 +17,7 @@ const LoginPage = () => {
     const data = { email, password };
     const userData = JSON.stringify(data);
 
-    const response = await fetch('movie-api-blush.vercel.app/login', {
+    const response = await fetch('https://movie-api-blush.vercel.app/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
