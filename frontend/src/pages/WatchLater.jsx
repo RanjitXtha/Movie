@@ -10,7 +10,7 @@ const WatchLater = () => {
   useEffect(() => {
     const fetchWatchLater = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/${userId}/watchlater`);
+        const response = await fetch(`https://movie-flax-ten.vercel.app/api/${userId}/watchlater`);
         const data = await response.json();
         const sortedWatchLater = data.sort((a, b) => new Date(b.watchedAt) - new Date(a.watchedAt));
         setWatchLater(sortedWatchLater);
@@ -24,7 +24,7 @@ const WatchLater = () => {
 
   const removeFromWatchLater = async (movieId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/${userId}/watchlater/${movieId}`, {
+      const response = await fetch(`https://movie-flax-ten.vercel.app/api/${userId}/watchlater/${movieId}`, {
         method: 'DELETE',
       });
       const data = await response.json();

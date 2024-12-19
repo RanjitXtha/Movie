@@ -46,7 +46,7 @@ const Header = () => {
     useEffect(()=>{
 
         const fetchMovieGenres = async () => {
-            const response = await fetch(`http://localhost:5000/api/genres/movies`);
+            const response = await fetch(`https://movie-flax-ten.vercel.app/api/genres/movies`);
             const data = await response.json();
             setMovieGenres(data.results.genres);
         }

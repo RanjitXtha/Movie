@@ -28,7 +28,7 @@ const SignIn = () => {
               }
               setError('');
                      
-            const response = await fetch('http://localhost:5000/signup',{
+            const response = await fetch('https://movie-flax-ten.vercel.app/signup',{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json',

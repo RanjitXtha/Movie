@@ -22,7 +22,7 @@ const SearchPage = () => {
     const fetchSearchData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:5000/api/search?query=${searchQuery}`);
+        const response = await fetch(`https://movie-flax-ten.vercel.app/api/search?query=${searchQuery}`);
         const data = await response.json();
         setMovies(data.searchResult.movieData.results);
         setTvShows(data.searchResult.tvData.results);

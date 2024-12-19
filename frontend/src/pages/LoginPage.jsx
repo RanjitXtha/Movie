@@ -17,7 +17,7 @@ const LoginPage = () => {
     const data = { email, password };
     const userData = JSON.stringify(data);
 
-    const response = await fetch('http://localhost:5000/login', {
+    const response = await fetch('https://movie-flax-ten.vercel.app/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

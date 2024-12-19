@@ -27,12 +27,12 @@ const Movies = () => {
     setMovies(data.results); 
   };
 
-  const Popular = () => fetchMovies(`http://localhost:5000/api/movies/popular?page=${page}`);
-  const Latest = () => fetchMovies(`http://localhost:5000/api/movies/latest?page=${page}`);
-  const ByGenre = () => fetchMovies(`http://localhost:5000/api/movies/genre?genreType=${genreType}&page=${page}`);
+  const Popular = () => fetchMovies(`https://movie-flax-ten.vercel.app/api/movies/popular?page=${page}`);
+  const Latest = () => fetchMovies(`https://movie-flax-ten.vercel.app/api/movies/latest?page=${page}`);
+  const ByGenre = () => fetchMovies(`https://movie-flax-ten.vercel.app/api/movies/genre?genreType=${genreType}&page=${page}`);
 
   const fetchMovieGenres = async () => {
-    const response = await fetch(`http://localhost:5000/api/genres/movies`);
+    const response = await fetch(`https://movie-flax-ten.vercel.app/api/genres/movies`);
     const data = await response.json();
     const genre = data.results.genres.find(e => e.id === parseInt(genreType));
     setCategory(genre.name);
