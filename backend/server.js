@@ -21,7 +21,13 @@ const dbURL = "mongodb+srv://alienshooternp:herecomesthepain12@nodetesting.ljo8j
 const cors = require('cors');
 const app = express();
 
-app.use(cors());
+app.use(cors(
+    {
+        origin:["https://movie-api-blush.vercel.app/"],
+        methods : ["POST","GET"],
+        credentials:true
+    }
+));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
