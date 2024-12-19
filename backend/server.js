@@ -21,13 +21,12 @@ const dbURL = "mongodb+srv://alienshooternp:herecomesthepain12@nodetesting.ljo8j
 const cors = require('cors');
 const app = express();
 
-app.use(cors(
-    {
-        origin: ["https://movie-frontend-eight.vercel.app"],
-        methods : ["POST", "GET"],
-        credentials: true
-    }
-));
+app.use(cors({
+    origin: ["https://movie-frontend-eight.vercel.app"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
