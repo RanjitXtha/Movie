@@ -28,7 +28,7 @@ const SignIn = () => {
               }
               setError('');
                      
-            const response = await fetch('https://movie-flax-ten.vercel.app/signup',{
+            const response = await fetch('movie-api-blush.vercel.app/signup',{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json',

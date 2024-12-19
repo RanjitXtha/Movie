@@ -10,7 +10,7 @@ const History = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`https://movie-flax-ten.vercel.app/api/${userId}/history`);
+        const response = await fetch(`movie-api-blush.vercel.app/api/${userId}/history`);
         const data = await response.json();
         const sortedHistory = data.sort((a, b) => new Date(b.watchedAt) - new Date(a.watchedAt));
         setHistory(sortedHistory);
@@ -24,7 +24,7 @@ const History = () => {
 
   const removeFromHistory = async (movieId) => {
     try {
-      const response = await fetch(`https://movie-flax-ten.vercel.app/api/${userId}/history/${movieId}`, {
+      const response = await fetch(`movie-api-blush.vercel.app/api/${userId}/history/${movieId}`, {
         method: 'DELETE',
       });
       const data = await response.json();

@@ -21,7 +21,7 @@ const MovieTvCards = ({movie,type}) => {
           userId: userId,
         }
 
-        const response = await fetch(`https://movie-flax-ten.vercel.app/api/history`, {
+        const response = await fetch(`movie-api-blush.vercel.app/api/history`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
