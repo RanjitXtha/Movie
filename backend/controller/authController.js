@@ -8,6 +8,7 @@ const userSchema = require('../schema/userSchema');
 
 
 const SignIn = async(req,res)=>{
+    console.log("runig");
     try{
         const {username , email , password} = req.body;
        
@@ -37,6 +38,7 @@ const SignIn = async(req,res)=>{
 
 
 const LogIn = async(req,res)=>{
+    console.log("runig");
     try{
         const {email , password} = req.body;
         const user = await userSchema.findOne({email});
