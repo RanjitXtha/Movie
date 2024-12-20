@@ -42,6 +42,7 @@ const LoginPage = () => {
     } else {
       const error = await response.json();
       setError(error.message);
+      console.log(error.message)
     }}catch(err){
       console.log(err);
     }
