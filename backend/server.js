@@ -44,6 +44,7 @@ mongoose.connect(DB_URL).then(()=>{
 
 app.get('/',(req,res)=>{
     res.send('This is homee page');
+    console.log("get")
 })
 
 app.get('/login',(req,res)=>{

@@ -38,8 +38,9 @@ const SignIn = async(req,res)=>{
 
 
 const LogIn = async(req,res)=>{
-    console.log("running");
+    
     try{
+        console.log("running");
         const {email , password} = req.body;
         const user = await userSchema.findOne({email});
 
@@ -63,7 +64,7 @@ const LogIn = async(req,res)=>{
     return res.json({token});
 }catch(err){
     console.log(err);
-    return res.status(500).json({ message: 'Server error occured' });
+    return res.status(500).json({ message: err });
 }
 
 }
