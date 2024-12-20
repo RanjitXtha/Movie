@@ -23,6 +23,7 @@ const LoginPage = () => {
         'Content-Type': 'application/json',
       },
       body: userData,
+       credentials: 'include'
     });
 
     if (response.ok) {

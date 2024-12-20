@@ -34,6 +34,7 @@ const SignIn = () => {
                     'Content-Type':'application/json',
                 },
                 body:data,
+                 credentials: 'include'
             })
 
             if(response.ok){
