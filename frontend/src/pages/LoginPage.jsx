@@ -13,6 +13,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+
+    try{
     e.preventDefault();
     const data = { email, password };
     const userData = JSON.stringify(data);
@@ -23,9 +25,9 @@ const LoginPage = () => {
         'Content-Type': 'application/json',
       },
       body: userData,
-       credentials: 'include'
+    
     });
-
+    console.log("frontend running")
     if (response.ok) {
       const tokenData = await response.json();
       localStorage.setItem('token', tokenData.token);
@@ -40,6 +42,8 @@ const LoginPage = () => {
     } else {
       const error = await response.json();
       setError(error.message);
+    }}catch(err){
+      console.log(err);
     }
   };
 
