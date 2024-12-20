@@ -20,10 +20,12 @@ const DB_URL = process.env.DB_URL;
 const app = express();
 
 const cors = require('cors');
+app.options('*', cors());
 app.use(cors({
     origin: ["http://localhost:3000","https://movie-frontend-eight.vercel.app"],
-    methods: ["POST", "GET", "PUT", "DELETE"],
-    credentials: true
+    methods: ["POST", "GET", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 
