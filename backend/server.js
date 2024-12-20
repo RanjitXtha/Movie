@@ -17,15 +17,18 @@ const {addHistory , addFavourite , addWatchLater , getHistory ,getFavourite , ge
 
 const {handleSearch} = require('./tmdb/handleSearch');
 
-const dbURL = "mongodb+srv://alienshooternp:herecomesthepain12@nodetesting.ljo8jbk.mongodb.net/moviedb?retryWrites=true&w=majority";
-const cors = require('cors');
-const app = express();
 
+const cors = require('cors');
 app.use(cors({
-    origin: ["https://movie-frontend-eight.vercel.app"],
+    origin: ["http://localhost:3000","https://movie-frontend-eight.vercel.app"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true
 }));
+
+const app = express();
+
+const dbURL = "mongodb+srv://alienshooternp:herecomesthepain12@nodetesting.ljo8jbk.mongodb.net/moviedb?retryWrites=true&w=majority";
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
