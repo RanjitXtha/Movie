@@ -24,6 +24,7 @@ const SearchPage = () => {
       try {
         const response = await fetch(`https://movie-api-blush.vercel.app/api/search?query=${searchQuery}`);
         const data = await response.json();
+        console.log(data.searchResult);
         setMovies(data.searchResult.movieData.results);
         setTvShows(data.searchResult.tvData.results);
       } catch (error) {
@@ -53,7 +54,7 @@ const SearchPage = () => {
             <MovieTvCards movie={movie} type={"movie"} />
           ))}
         </div>
-        {!tvShows && <div>
+        {tvShows && <div>
           <h2 className="titles mt-[5rem]">TV Shows</h2>
           <div className='grid grid-cols-2  md:grid-cols-4 xl:grid-cols-5 gap-y-6 gap-x-3 justify-between'>
             
