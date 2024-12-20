@@ -16,7 +16,8 @@ const {addHistory , addFavourite , addWatchLater , getHistory ,getFavourite , ge
     } = require('./userInfo/userInfo');
 
 const {handleSearch} = require('./tmdb/handleSearch');
-
+const DB_URL = process.env.DB_URL;
+const app = express();
 
 const cors = require('cors');
 app.use(cors({
@@ -25,15 +26,14 @@ app.use(cors({
     credentials: true
 }));
 
-const app = express();
 
-const dbURL = "mongodb+srv://alienshooternp:herecomesthepain12@nodetesting.ljo8jbk.mongodb.net/moviedb?retryWrites=true&w=majority";
+
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(dbURL).then(()=>{
+mongoose.connect(DB_URL).then(()=>{
     app.listen(5000);
     console.log('server created');
     console.log('connected to db');
