@@ -1,6 +1,8 @@
 require('dotenv').config();
+
+
 const SECRET_KEY = process.env.SECRET_KEY;
-console.log(SECRET_KEY);
+console.log("secret key "+SECRET_KEY);
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 
